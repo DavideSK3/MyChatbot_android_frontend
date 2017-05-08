@@ -10,11 +10,17 @@ public class Message {
     private String sender;
     private String content;
     private String time;
+    private String intent;
+    private String restaurant;
+    private String cinema;
 
-    public Message(String sender, String content, String time){
+    public Message(String sender, String content, String time,String intent, String restaurant, String cinema){
         this.sender = sender;
         this.content = content;
         this.time = time;
+        this.intent = intent;
+        this.restaurant = restaurant;
+        this.cinema = cinema;
     }
 
     public String getSender(){
@@ -29,4 +35,15 @@ public class Message {
         return  time;
     }
 
+    public String getIntent() {
+        return intent;
+    }
+
+    public String getRestaurant() {
+        return restaurant;
+    }
+
+    public String getCinema() {
+        return cinema;
+    }
 }

@@ -31,6 +31,12 @@
         <activity android:name=".ChatActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ResultsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RestaurantActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CinemaActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".Services.MyFirebaseInstanceIDService"

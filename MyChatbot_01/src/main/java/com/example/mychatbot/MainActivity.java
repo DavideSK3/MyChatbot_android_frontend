@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (token == null) {
             progressDialog.dismiss();
-            Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
         }
 
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_LOGIN_USER,

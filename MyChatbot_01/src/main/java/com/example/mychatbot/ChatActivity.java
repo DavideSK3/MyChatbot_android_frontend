@@ -79,7 +79,7 @@ public class ChatActivity extends AppCompatActivity implements LocationListener 
     private String thisChatid = null;
     private String witaiOutput = "";
     private String todayText = "";
-    private String lat = "";
+    public String lat = "";
     private String lon = "";
 
     @Override
@@ -99,7 +99,7 @@ public class ChatActivity extends AppCompatActivity implements LocationListener 
         messageList = new ArrayList<>();
         fragmentManager = getFragmentManager();
 
-        initLocation();
+        initLocationManager();
 
         //get extra parameters
         Intent intent = getIntent();
@@ -118,7 +118,7 @@ public class ChatActivity extends AppCompatActivity implements LocationListener 
 
                 inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
-                sendMessage();
+                callWitAi();
             }
         });
 
@@ -126,6 +126,7 @@ public class ChatActivity extends AppCompatActivity implements LocationListener 
             @Override
             public void onClick(View v) {
                 if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    System.out.println("No permissions");
                     return;
                 }
                 System.out.println("On clickLatitude:" + lat + ", Longitude:" + lon);
@@ -226,27 +227,31 @@ public class ChatActivity extends AppCompatActivity implements LocationListener 
     }
 
     private void fetchMessageList() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Fetching messages...");
-        progressDialog.show();
+        //progressDialog = new ProgressDialog(this);
+        //progressDialog.setMessage("Fetching messages...");
+        //progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_GET_MESSAGES,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressDialog.dismiss();
+                        //progressDialog.dismiss();
                         messageList.clear();
                         mlAdapter.reset();
                         try {
                             JSONObject obj = new JSONObject(response);
+                            System.out.println(obj);
                             JSONArray arr = obj.getJSONArray("messages");
                             todayText = "";
                             for (int i = 0; i < arr.length(); i++) {
                                 String sender = arr.getJSONObject(i).getString("sender");
                                 String content = arr.getJSONObject(i).getString("content");
                                 String time = arr.getJSONObject(i).getString("time");
+                                String intent = arr.getJSONObject(i).getString("intent");
+                                String restaurant = arr.getJSONObject(i).getString("restaurant");
+                                String cinema = arr.getJSONObject(i).getString("cinema");
                                 //System.out.println("messages   "+sender +  content +  time);
-                                messageList.add(new Message(sender, content, time));
+                                messageList.add(new Message(sender, content, time, intent, restaurant, cinema));
                                 pushSentence(content, time);
                             }
                             loadList();
@@ -258,7 +263,7 @@ public class ChatActivity extends AppCompatActivity implements LocationListener 
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
+                        //progressDialog.dismiss();
                         Toast.makeText(ChatActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {
@@ -288,9 +293,9 @@ public class ChatActivity extends AppCompatActivity implements LocationListener 
         list.setSelection(mlAdapter.getCount() - 1);
     }
 
-    private void sendMessage() {
+    private void sendMessage(final String i) {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Sendind message...");
+        progressDialog.setMessage("Sendind message with intent..."+i);
         progressDialog.show();
 
         final String fb_id = SharedPrefManager.getInstance(this).getFacebookId();
@@ -319,7 +324,7 @@ public class ChatActivity extends AppCompatActivity implements LocationListener 
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(ChatActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ChatActivity.this, "Error sending message", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -329,6 +334,9 @@ public class ChatActivity extends AppCompatActivity implements LocationListener 
                 params.put("sender", fb_id);
                 params.put("content", content);
                 params.put("chatid", thisChatid);
+                params.put("intent", i);
+                params.put("restaurant", "");
+                params.put("cinema", "");
                 return params;
             }
         };
@@ -375,11 +383,10 @@ public class ChatActivity extends AppCompatActivity implements LocationListener 
         final String witai_token = SharedPrefManager.getInstance(this).getWitAiToken();
         final String query_encoded;
         String query_encodedtemp = "null";
+        final String message_text = text.getText().toString();
 
         try {
-            if (todayText.length() != 0) {
-                query_encodedtemp = URLEncoder.encode(todayText, "UTF-8").replace("+", "%20");
-            }
+            query_encodedtemp = URLEncoder.encode(message_text, "UTF-8").replace("+", "%20");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -396,18 +403,23 @@ public class ChatActivity extends AppCompatActivity implements LocationListener 
                         try {
                             JSONObject obj = new JSONObject(response);
                             JSONObject entities = new JSONObject(obj.getString("entities"));
+                            System.out.println("witai answer  "+obj);
                             if (entities.has("intent")) {
                                 JSONArray intents = entities.getJSONArray("intent");
                                 witaiOutput = intents.getJSONObject(intents.length() - 1).getString("value");
+                            } else {
+                                witaiOutput="";
                             }
                             System.out.println("witaiOutput  " + witaiOutput);
                             if (!witaiOutput.equals("")) {
                                 if (witaiOutput.equals("restaurant")) {
-                                    getRestaurantSuggestion();
+                                    sendMessage(witaiOutput);
                                 } else if (witaiOutput.equals("cinema")) {
-                                    Toast.makeText(ChatActivity.this, witaiOutput, Toast.LENGTH_LONG).show();
+
+                                    sendMessage(witaiOutput);
                                 }
                             } else {
+                                sendMessage("");
                                 Toast.makeText(ChatActivity.this, "No Intent detected", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
@@ -514,7 +526,7 @@ public class ChatActivity extends AppCompatActivity implements LocationListener 
         }
     }
 
-    private void initLocation(){
+    private void initLocationManager(){
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
