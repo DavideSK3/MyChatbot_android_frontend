@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:padding="10sp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:paddingTop="10sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/name">
+    </TextView>
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:paddingBottom="10sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/address">
+    </TextView>
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:padding="15sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/distance">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:layout_alignParentBottom="true"
+        android:weightSum="4">
+
+        <ImageButton
+            android:id="@+id/phone"
+            android:layout_width="60sp"
+            android:layout_height="70sp"
+            android:src="@drawable/phone"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"
+            />
+        <ImageButton
+            android:id="@+id/maps"
+            android:layout_width="60sp"
+            android:layout_height="70sp"
+            android:src="@drawable/maps"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"
+            />
+        <ImageButton
+            android:id="@+id/email"
+            android:layout_width="60sp"
+            android:layout_height="70sp"
+            android:src="@drawable/email"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"
+            />
+        <ImageButton
+            android:id="@+id/url"
+            android:layout_width="60sp"
+            android:layout_height="70sp"
+            android:src="@drawable/url"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chat_activity_view"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/header"
+        android:layout_height="60sp"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/chatname"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:padding="15sp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/chatbot"
+            android:layout_width="60sp"
+            android:layout_height="60sp"
+            android:src="@drawable/icon_centered"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/footer"
+        android:layout_height="60sp"
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <EditText
+            android:id="@+id/text"
+            android:maxLength="1000"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="9"/>
+        <Button android:id="@+id/send"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:text="Send"
+            android:layout_centerHorizontal="true"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_above="@+id/footer"
+        android:layout_below="@+id/header"/>
+
+
+    <FrameLayout
+        android:id="@+id/frame_popup"
+        android:layout_width="280dp"
+        android:layout_height="330dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+    </FrameLayout>
+
+
+</RelativeLayout>
