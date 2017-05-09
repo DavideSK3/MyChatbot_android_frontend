@@ -1,10 +1,13 @@
 package com.example.mychatbot.Entities;
 
+import com.example.mychatbot.Utilities.MyMethods;
+
 /**
  * Created by david on 02/05/2017.
  */
 
 public class Restaurant {
+    private String id;
     private String name;
     private String desc;
     private String lat;
@@ -15,8 +18,10 @@ public class Restaurant {
     private String phone;
     private String email;
     private String url;
+    private Double distance;
 
-    public Restaurant(String name,
+    public Restaurant(String id,
+            String name,
             String desc,
             String lat,
             String lon,
@@ -25,7 +30,9 @@ public class Restaurant {
             String city,
             String phone,
             String email,
-            String url){
+            String url,
+            Double distance){
+        this.id = id;
         this.name= name;
         this.desc= desc;
         this.lat= lat;
@@ -36,6 +43,15 @@ public class Restaurant {
         this.phone= phone;
         this.email= email;
         this.url= url;
+        this.distance= MyMethods.round(distance, 2);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -116,5 +132,13 @@ public class Restaurant {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
     }
 }

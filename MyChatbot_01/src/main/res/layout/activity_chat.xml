@@ -19,14 +19,6 @@
             android:textSize="25sp"
             android:padding="15sp"
             android:layout_weight="1"/>
-
-        <ImageButton
-            android:id="@+id/chatbot"
-            android:layout_width="60sp"
-            android:layout_height="60sp"
-            android:src="@drawable/icon_centered"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"/>
     </LinearLayout>
 
 

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MyChatbot</string>
     <string name="facebook_app_id">1142113632567709</string>
+    <string name="default_location">Trento</string>
 </resources>

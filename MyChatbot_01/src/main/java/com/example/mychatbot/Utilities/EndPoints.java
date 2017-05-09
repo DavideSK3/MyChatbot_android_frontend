@@ -21,6 +21,8 @@ public class EndPoints {
     public static final String URL_SEND_MESSAGE  = BASE_URL + "SendMessage.php";
     public static final String URL_SEND_NOTIFICATION = BASE_URL + "SendNotification.php";
     public static final String URL_LOGOUT_USER = BASE_URL + "RemoveUser.php";
+    public static final String URL_GET_RESTAURANTS = BASE_URL + "GetRestaurants.php";
+    public static final String URL_GET_SINGLE_RESTAURANT = BASE_URL + "GetSingleRestaurant.php";
     public static final String URL_SUGGEST_RESTAURANT = BASE_URL + "SuggestRestaurant.php";
     public static final String URL_FB_BASE= "https://graph.facebook.com/";
     public static final String URL_FB_ME= URL_FB_BASE+"me?access_token=";

@@ -2,6 +2,7 @@ package com.example.mychatbot.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,17 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
     private ArrayList<Message> messageList;
     private Context mContext = null;
     private int mLayout;
+    private String chatid= "";
+    private String chatname= "";
+    private TextView content;
 
-    public MessageListAdapter(Context context, int layoutId, ArrayList<Message> messageList) {
+    public MessageListAdapter(Context context, int layoutId, ArrayList<Message> messageList, String chatid, String chatname) {
         super(context, layoutId, messageList);
         this.messageList = messageList;
         mContext = context;
         mLayout = layoutId;
+        this.chatid = chatid;
+        this.chatname = chatname;
     }
 
     public void reset(){
@@ -51,13 +57,14 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
         final Message message = messageList.get(position);
 
         System.out.println(" message intent  "+message.getContent()+"  "+message.getIntent());
+
         if(message.getSender().equals(SharedPrefManager.getInstance(mContext).getFacebookId())) {
+
             TextView time = (TextView) view
                     .findViewById(R.id.timeR);
             String msgtime = message.getTime();
             time.setText(MyMethods.getTimeString(msgtime));
-
-            TextView content = (TextView) view
+            content = (TextView) view
                     .findViewById(R.id.contentR);
             content.setText(message.getContent());
 
@@ -72,45 +79,52 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
                                 ResultsActivity.class);
                         String intent = message.getIntent();
                         openResultsActivityIntent.putExtra(mContext.getPackageName() + ".intent",intent);
+                        openResultsActivityIntent.putExtra(mContext.getPackageName() + ".chatid",chatid);
+                        openResultsActivityIntent.putExtra(mContext.getPackageName() + ".chatname",chatname);
                         mContext.startActivity(openResultsActivityIntent);
                     }
                 });
             }
-
             if(message.getRestaurant()!=null &&  !message.getRestaurant().equals("0")) {
+                content.setText(Html.fromHtml(message.getContent()), TextView.BufferType.SPANNABLE);
                 content.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //content.setText(Html.fromHtml(message.getContent().replace("0645AD","0B0080")), TextView.BufferType.SPANNABLE);
                         System.out.println("restaurant intent found clicking message");
                         Intent openRestaurantActivityIntent = new Intent(mContext,
                                 RestaurantActivity.class);
                         String restaurant = message.getRestaurant();
-                        openRestaurantActivityIntent.putExtra(mContext.getPackageName() + ".restaurant", restaurant);
+                        openRestaurantActivityIntent.putExtra(mContext.getPackageName() + ".restaurantid", restaurant);
                         mContext.startActivity(openRestaurantActivityIntent);
                     }
                 });
             }
-
             if(message.getCinema()!=null && !message.getCinema().equals("0")) {
+                content.setText(Html.fromHtml(message.getContent()), TextView.BufferType.SPANNABLE);
                 content.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //content.setText(Html.fromHtml(message.getContent().replace("0645AD","0B0080")), TextView.BufferType.SPANNABLE);
                         System.out.println("cinema intent found clicking message");
                         Intent openCinemaActivityIntent = new Intent(mContext,
                                 CinemaActivity.class);
                         String cinema = message.getCinema();
-                        openCinemaActivityIntent.putExtra(mContext.getPackageName() + ".cinema",cinema);
+                        openCinemaActivityIntent.putExtra(mContext.getPackageName() + ".cinemaid",cinema);
                         mContext.startActivity(openCinemaActivityIntent);
                     }
                 });
             }
+
+
         } else {
+
+
             TextView time = (TextView) view
                     .findViewById(R.id.timeL);
             String msgtime = message.getTime();
             time.setText(MyMethods.getTimeString(msgtime));
-
-            TextView content = (TextView) view
+            content = (TextView) view
                     .findViewById(R.id.contentL);
             content.setText(message.getContent());
 
@@ -125,34 +139,38 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
                                 ResultsActivity.class);
                         String intent = message.getIntent();
                         openResultsActivityIntent.putExtra(mContext.getPackageName() + ".intent",intent);
+                        openResultsActivityIntent.putExtra(mContext.getPackageName() + ".chatid",chatid);
+                        openResultsActivityIntent.putExtra(mContext.getPackageName() + ".chatname",chatname);
                         mContext.startActivity(openResultsActivityIntent);
                     }
                 });
             }
-
             if(message.getRestaurant()!=null && message.getRestaurant()!=("0")) {
+                content.setText(Html.fromHtml(message.getContent()), TextView.BufferType.SPANNABLE);
                 content.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //content.setText(Html.fromHtml(message.getContent().replace("0645AD","0B0080")), TextView.BufferType.SPANNABLE);
                         System.out.println("restaurant intent found clicking message");
                         Intent openRestaurantActivityIntent = new Intent(mContext,
                                 RestaurantActivity.class);
                         String restaurant = message.getRestaurant();
-                        openRestaurantActivityIntent.putExtra(mContext.getPackageName() + ".restaurant", restaurant);
+                        openRestaurantActivityIntent.putExtra(mContext.getPackageName() + ".restaurantid", restaurant);
                         mContext.startActivity(openRestaurantActivityIntent);
                     }
                 });
             }
-
             if(message.getCinema()!=null && message.getCinema()!=("0")) {
+                content.setText(Html.fromHtml(message.getContent()), TextView.BufferType.SPANNABLE);
                 content.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //content.setText(Html.fromHtml(message.getContent().replace("0645AD","0B0080")), TextView.BufferType.SPANNABLE);
                         System.out.println("cinema intent found clicking message");
                         Intent openCinemaActivityIntent = new Intent(mContext,
                                 CinemaActivity.class);
                         String cinema = message.getCinema();
-                        openCinemaActivityIntent.putExtra(mContext.getPackageName() + ".cinema",cinema);
+                        openCinemaActivityIntent.putExtra(mContext.getPackageName() + ".cinemaid",cinema);
                         mContext.startActivity(openCinemaActivityIntent);
                     }
                 });

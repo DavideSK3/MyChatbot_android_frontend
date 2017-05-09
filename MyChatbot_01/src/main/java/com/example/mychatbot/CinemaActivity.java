@@ -18,7 +18,7 @@ public class CinemaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results);
         Intent intent = getIntent();
         String i = intent.getStringExtra(getPackageName() + ".intent");
-        extras = (TextView) findViewById(R.id.extras);
-        extras.setText(i);
+        //extras = (TextView) findViewById(R.id.extras);
+        //extras.setText(i);
     }
 }
