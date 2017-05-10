@@ -106,11 +106,13 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
                     public void onClick(View v) {
                         //content.setText(Html.fromHtml(message.getContent().replace("0645AD","0B0080")), TextView.BufferType.SPANNABLE);
                         System.out.println("cinema intent found clicking message");
-                        Intent openCinemaActivityIntent = new Intent(mContext,
+                        Intent openMovieActivityIntent = new Intent(mContext,
                                 MovieActivity.class);
                         String cinema = message.getCinema();
-                        openCinemaActivityIntent.putExtra(mContext.getPackageName() + ".cinemaid",cinema);
-                        mContext.startActivity(openCinemaActivityIntent);
+                        String messaggio = message.getContent();
+                        openMovieActivityIntent.putExtra(mContext.getPackageName() + ".movieid",cinema);
+                        openMovieActivityIntent.putExtra(mContext.getPackageName() + ".day",messaggio.substring(messaggio.length()-10));
+                        mContext.startActivity(openMovieActivityIntent);
                     }
                 });
             }
@@ -166,11 +168,13 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
                     public void onClick(View v) {
                         //content.setText(Html.fromHtml(message.getContent().replace("0645AD","0B0080")), TextView.BufferType.SPANNABLE);
                         System.out.println("cinema intent found clicking message");
-                        Intent openCinemaActivityIntent = new Intent(mContext,
+                        Intent openMovieActivityIntent = new Intent(mContext,
                                 MovieActivity.class);
                         String cinema = message.getCinema();
-                        openCinemaActivityIntent.putExtra(mContext.getPackageName() + ".cinemaid",cinema);
-                        mContext.startActivity(openCinemaActivityIntent);
+                        String messaggio = message.getContent();
+                        openMovieActivityIntent.putExtra(mContext.getPackageName() + ".movieid",cinema);
+                        openMovieActivityIntent.putExtra(mContext.getPackageName() + ".day",messaggio.substring(messaggio.length()-10));
+                        mContext.startActivity(openMovieActivityIntent);
                     }
                 });
             }

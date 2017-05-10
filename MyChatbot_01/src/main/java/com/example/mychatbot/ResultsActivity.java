@@ -37,6 +37,7 @@ import com.example.mychatbot.Entities.Message;
 import com.example.mychatbot.Entities.Movie;
 import com.example.mychatbot.Entities.Restaurant;
 import com.example.mychatbot.Utilities.EndPoints;
+import com.example.mychatbot.Utilities.MyMethods;
 import com.example.mychatbot.Utilities.MyVolley;
 
 import org.json.JSONArray;
@@ -277,8 +278,9 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
                 Intent openRestaurantActivityIntent = new Intent(ResultsActivity.this,
                         MovieActivity.class);
                 openRestaurantActivityIntent.putExtra(getPackageName() + ".movieid",movieList.get(position).getId());
-                //openRestaurantActivityIntent.putExtra(getPackageName() + ".day",today);
+                openRestaurantActivityIntent.putExtra(getPackageName() + ".day", MyMethods.getTodayDate());
                 openRestaurantActivityIntent.putExtra(getPackageName() + ".chatname",chatname);
+                openRestaurantActivityIntent.putExtra(getPackageName() + ".chatid",chatid);
                 startActivity(openRestaurantActivityIntent);
             }
         });

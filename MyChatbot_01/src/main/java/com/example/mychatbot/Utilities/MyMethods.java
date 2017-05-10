@@ -32,4 +32,92 @@ public class MyMethods {
         }
         return day;
     }
+
+    public static String getTodayDate(){
+        String now = new Timestamp(System.currentTimeMillis()).toString();
+        String today = now.substring(0, 10);
+        return today;
+    }
+
+    public static String getTomorrow(String today){
+        String year = today.substring(0,4);
+        int month=Integer.parseInt(today.substring(5,7));
+        int day= Integer.parseInt(today.substring(8,10));
+        System.out.println("tomorrow of: *"+year+"*"+month+"*"+day);
+        if(month==06){
+            if(day==30){
+                return year +"-07-01";
+            } else {
+                if(day>=9){
+                    return year+"-"+String.valueOf(month)+"-"+String.valueOf(day+1);
+                } else {
+                    return year+"-"+String.valueOf(month)+"-0"+String.valueOf(day+1);
+                }
+            }
+        } else {
+            if(day==31){
+                if(month>=9){
+                    return year +"-"+String.valueOf(month+1)+"-01";
+                } else {
+                    return year +"-0"+String.valueOf(month+1)+"-01";
+                }
+            } else {
+                if(month>=9){
+                    if(day>=9){
+                        return year+"-"+String.valueOf(month)+"-"+String.valueOf(day+1);
+                    } else {
+                        return year+"-"+String.valueOf(month)+"-0"+String.valueOf(day+1);
+                    }
+                } else {
+                    if(day>=9){
+                        return year+"-0"+String.valueOf(month)+"-"+String.valueOf(day+1);
+                    } else {
+                        return year+"-0"+String.valueOf(month)+"-0"+String.valueOf(day+1);
+                    }
+                }
+            }
+
+        }
+    }
+
+    public static String getYesterday(String today){
+        String year = today.substring(0,4);
+        int month=Integer.parseInt(today.substring(5,7));
+        int day= Integer.parseInt(today.substring(8,10));
+        System.out.println("yesterday of: *"+year+"*"+month+"*"+day);
+        if(month==07){
+            if(day==01){
+                return year +"-06-30";
+            } else {
+                if(day>=11){
+                    return year+"-"+String.valueOf(month)+"-"+String.valueOf(day-1);
+                } else {
+                    return year+"-"+String.valueOf(month)+"-0"+String.valueOf(day-1);
+                }
+            }
+        } else {
+            if(day==01){
+                if(month>=11){
+                    return year +"-"+String.valueOf(month-1)+"-31";
+                } else {
+                    return year +"-0"+String.valueOf(month-1)+"-31";
+                }
+            } else {
+                if(month>=11){
+                    if(day>=11){
+                        return year+"-"+String.valueOf(month)+"-"+String.valueOf(day-1);
+                    } else {
+                        return year+"-"+String.valueOf(month)+"-0"+String.valueOf(day-1);
+                    }
+                } else {
+                    if(day>=11){
+                        return year+"-0"+String.valueOf(month)+"-"+String.valueOf(day-1);
+                    } else {
+                        return year+"-0"+String.valueOf(month)+"-0"+String.valueOf(day-1);
+                    }
+                }
+            }
+
+        }
+    }
 }
