@@ -4,11 +4,16 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.mychatbot.Entities.Restaurant;
+import com.example.mychatbot.Utilities.DownloadImageTask;
 import com.example.mychatbot.Utilities.EndPoints;
 import com.example.mychatbot.Utilities.IntentUtils;
 import com.example.mychatbot.Utilities.MyVolley;
@@ -26,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,8 +47,8 @@ public class RestaurantActivity extends AppCompatActivity {
     private TextView address;
     private TextView distance;
     private TextView desc;
+    private ImageView map;
     private ImageButton phone;
-    private ImageButton maps;
     private ImageButton email;
     private ImageButton url;
     private Button suggest;
@@ -64,8 +71,8 @@ public class RestaurantActivity extends AppCompatActivity {
         address = (TextView) findViewById(R.id.address);
         distance = (TextView) findViewById(R.id.distance);
         desc = (TextView) findViewById(R.id.desc);
+        map = (ImageView) findViewById(R.id.mappa);
         phone = (ImageButton) findViewById(R.id.phone);
-        maps = (ImageButton) findViewById(R.id.maps);
         email = (ImageButton) findViewById(R.id.email);
         url = (ImageButton) findViewById(R.id.url);
         suggest = (Button) findViewById(R.id.suggest);
@@ -138,12 +145,17 @@ public class RestaurantActivity extends AppCompatActivity {
             distance.setVisibility(View.GONE);
         }
         desc.setText(restaurant.getDesc());
+        new DownloadImageTask(map)
+                .execute("http://maps.google.com/maps/api/staticmap?center="+restaurant.getLat()+","+restaurant.getLon()+
+                        "&zoom=16&size=500x250&maptype=roadmap&sensor=true&markers=color:red%7Clabel:R%7C"
+                        +restaurant.getLat()+","+restaurant.getLon());
+
     }
 
     private void setListeners(){
 
-        maps.setVisibility(View.VISIBLE);
-        maps.setOnClickListener(new View.OnClickListener() {
+        map.setVisibility(View.VISIBLE);
+        map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 IntentUtils.showDirections(context,restaurant.getLat(),restaurant.getLon());
@@ -285,4 +297,5 @@ public class RestaurantActivity extends AppCompatActivity {
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
+
 }

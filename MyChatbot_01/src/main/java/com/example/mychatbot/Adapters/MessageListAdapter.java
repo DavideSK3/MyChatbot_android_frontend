@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.mychatbot.CinemaActivity;
+import com.example.mychatbot.MovieActivity;
 import com.example.mychatbot.Entities.Message;
 import com.example.mychatbot.R;
 import com.example.mychatbot.RestaurantActivity;
@@ -18,7 +18,6 @@ import com.example.mychatbot.ResultsActivity;
 import com.example.mychatbot.Utilities.MyMethods;
 import com.example.mychatbot.Utilities.SharedPrefManager;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -108,7 +107,7 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
                         //content.setText(Html.fromHtml(message.getContent().replace("0645AD","0B0080")), TextView.BufferType.SPANNABLE);
                         System.out.println("cinema intent found clicking message");
                         Intent openCinemaActivityIntent = new Intent(mContext,
-                                CinemaActivity.class);
+                                MovieActivity.class);
                         String cinema = message.getCinema();
                         openCinemaActivityIntent.putExtra(mContext.getPackageName() + ".cinemaid",cinema);
                         mContext.startActivity(openCinemaActivityIntent);
@@ -168,7 +167,7 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
                         //content.setText(Html.fromHtml(message.getContent().replace("0645AD","0B0080")), TextView.BufferType.SPANNABLE);
                         System.out.println("cinema intent found clicking message");
                         Intent openCinemaActivityIntent = new Intent(mContext,
-                                CinemaActivity.class);
+                                MovieActivity.class);
                         String cinema = message.getCinema();
                         openCinemaActivityIntent.putExtra(mContext.getPackageName() + ".cinemaid",cinema);
                         mContext.startActivity(openCinemaActivityIntent);

@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,8 +31,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.mychatbot.Adapters.MessageListAdapter;
+import com.example.mychatbot.Adapters.MovieListAdapter;
 import com.example.mychatbot.Adapters.RestaurantListAdapter;
 import com.example.mychatbot.Entities.Message;
+import com.example.mychatbot.Entities.Movie;
 import com.example.mychatbot.Entities.Restaurant;
 import com.example.mychatbot.Utilities.EndPoints;
 import com.example.mychatbot.Utilities.MyVolley;
@@ -62,7 +65,9 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
     private ListView list;
 
     private ArrayList<Restaurant> restaurantList;
+    private ArrayList<Movie> movieList;
     private RestaurantListAdapter rlAdapter;
+    private MovieListAdapter mlAdapter;
     private Activity context;
     private LocationManager locationManager;
 
@@ -85,6 +90,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         list = (ListView) findViewById(R.id.list);
 
         restaurantList = new ArrayList<>();
+        movieList = new ArrayList<>();
         context = this;
 
         Intent intent = getIntent();
@@ -137,22 +143,18 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         if(intento.equals("restaurant")) {
             fetchRestaurantList();
         } else if (intento.equals("cinema")){
-            fetchCinemaList();
+            fetchMovieList();
         } else {
             Toast.makeText(ResultsActivity.this, "Intent can't be matched to rest or cin", Toast.LENGTH_LONG).show();
         }
     }
 
     private void fetchRestaurantList(){
-        //progressDialog = new ProgressDialog(this);
-        //progressDialog.setMessage("Fetching messages...");
-        //progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_GET_RESTAURANTS,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //progressDialog.dismiss();
                         restaurantList.clear();
                         rlAdapter.reset();
                         try {
@@ -160,7 +162,8 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
                             JSONArray arr= obj.getJSONArray("restaurants");
                             for(int i=0;i<arr.length();i++) {
                                 JSONObject r = arr.getJSONObject(i);
-                                restaurantList.add(new Restaurant(r.getString("id"),r.getString("name"), "", "", "",
+                                restaurantList.add(new Restaurant(r.getString("id"),r.getString("name"), "",
+                                        r.getString("lat"),r.getString("lon"),
                                         r.getString("street"), r.getString("number"), r.getString("city"),
                                         "", "", "",r.getDouble("distance")));
                             }
@@ -173,7 +176,6 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //progressDialog.dismiss();
                         Toast.makeText(ResultsActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {
@@ -191,15 +193,56 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
 
     }
 
-    private void fetchCinemaList(){
+    private void fetchMovieList(){
+        StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_GET_MOVIES,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        movieList.clear();
+                        mlAdapter.reset();
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            JSONArray arr= obj.getJSONArray("movies");
+                            for(int i=0;i<arr.length();i++) {
+                                JSONObject m = arr.getJSONObject(i);
+                                System.out.println("Movie: "+m);
+                                movieList.add(new Movie(m.getString("id"),m.getString("name"),
+                                        m.getString("description"),m.getString("length"),
+                                        m.getString("category"),m.getString("image")));
+                            }
+                            loadMovieList();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(ResultsActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
 
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                return params;
+            }
+        };
+
+        MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
     private void loadListWrapper(){
         if(intento.equals("restaurant")) {
+            place.setVisibility(View.VISIBLE);
+            place.setHint("Trento");
+            gps.setVisibility(View.VISIBLE);
+            search.setVisibility(View.VISIBLE);
             loadRestaurantList();
         } else if (intento.equals("cinema")){
-            loadCinemaList();
+
+            loadMovieList();
         } else {
             Toast.makeText(ResultsActivity.this, "Intent can't be matched to rest or cin", Toast.LENGTH_LONG).show();
         }
@@ -207,7 +250,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
     }
 
     private void loadRestaurantList(){
-        rlAdapter = new RestaurantListAdapter(this, R.layout.restaurantrowlayout, restaurantList);
+        rlAdapter = new RestaurantListAdapter(this,context, R.layout.restaurantrowlayout, restaurantList,lat,lon);
         list.setAdapter(rlAdapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -222,12 +265,24 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
                 startActivity(openRestaurantActivityIntent);
             }
         });
-        list.setSelection(rlAdapter.getCount() - 1);
         list.setSelectionAfterHeaderView();
     }
 
-    private void loadCinemaList(){
+    private void loadMovieList(){
+        mlAdapter = new MovieListAdapter(this,context,R.layout.movierowlayout,movieList);
+        list.setAdapter(mlAdapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent openRestaurantActivityIntent = new Intent(ResultsActivity.this,
+                        MovieActivity.class);
+                openRestaurantActivityIntent.putExtra(getPackageName() + ".movieid",movieList.get(position).getId());
+                //openRestaurantActivityIntent.putExtra(getPackageName() + ".day",today);
+                openRestaurantActivityIntent.putExtra(getPackageName() + ".chatname",chatname);
+                startActivity(openRestaurantActivityIntent);
+            }
+        });
+        list.setSelectionAfterHeaderView();
     }
 
     private void initLocationManager(){
@@ -279,7 +334,6 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
             Toast.makeText(ResultsActivity.this, "Input address can't be matched to an actual location", Toast.LENGTH_LONG).show();
         }
     }
-
 
     private void promptLocationUnavailable() {
         int off = 0;

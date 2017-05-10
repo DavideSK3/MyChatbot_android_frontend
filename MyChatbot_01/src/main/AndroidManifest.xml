@@ -35,7 +35,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".RestaurantActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".CinemaActivity"
+        <activity android:name=".MovieActivity"
             android:screenOrientation="portrait"/>
 
         <service

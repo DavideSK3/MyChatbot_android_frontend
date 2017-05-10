@@ -44,14 +44,24 @@
         android:layout_below="@id/distance">
     </TextView>
 
+    <ImageView
+        android:id="@+id/mappa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/desc"
+        android:layout_above="@+id/buttons"/>
+
     <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
-        android:layout_height="70sp"
-        android:layout_above="@+id/footer"
-        android:weightSum="4">
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:layout_alignParentBottom="true">
 
         <ImageButton
             android:id="@+id/phone"
+            android:background="@drawable/bluebutton_deep"
             android:layout_width="60sp"
             android:layout_height="70sp"
             android:src="@drawable/phone"
@@ -61,53 +71,42 @@
             android:visibility="gone"
             />
         <ImageButton
-            android:id="@+id/maps"
-            android:layout_width="60sp"
-            android:layout_height="70sp"
-            android:src="@drawable/maps"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:layout_weight="1"
-            android:visibility="gone"
-            />
-        <ImageButton
             android:id="@+id/email"
+            android:background="@drawable/greenbutton_deep"
+            android:layout_marginLeft="2sp"
             android:layout_width="60sp"
             android:layout_height="70sp"
             android:src="@drawable/email"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
+            android:padding="10sp"
             android:layout_weight="1"
             android:visibility="gone"
             />
         <ImageButton
             android:id="@+id/url"
+            android:background="@drawable/bluebutton_deep"
             android:layout_width="60sp"
+            android:layout_marginLeft="2sp"
             android:layout_height="70sp"
             android:src="@drawable/url"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
+            android:padding="10sp"
             android:layout_weight="1"
             android:visibility="gone"
             />
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/footer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true">
-
         <Button
             android:id="@+id/suggest"
+            android:background="@drawable/greenbutton_deep"
+            android:layout_marginLeft="2sp"
             android:text="Suggest!"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10sp"
+            android:layout_weight="1"
+            android:padding="10sp"
             android:visibility="gone"/>
-    </FrameLayout>
 
+    </LinearLayout>
 
 </RelativeLayout>

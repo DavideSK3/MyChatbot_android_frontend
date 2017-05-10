@@ -9,7 +9,7 @@ import android.widget.TextView;
  * Created by david on 08/05/2017.
  */
 
-public class CinemaActivity extends AppCompatActivity {
+public class MovieActivity extends AppCompatActivity {
     private TextView extras;
 
     @Override
