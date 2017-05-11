@@ -61,15 +61,6 @@
             android:layout_weight="1"
             />
         <ImageButton
-            android:id="@+id/maps"
-            android:layout_width="60sp"
-            android:layout_height="70sp"
-            android:src="@drawable/maps"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:layout_weight="1"
-            />
-        <ImageButton
             android:id="@+id/email"
             android:layout_width="60sp"
             android:layout_height="70sp"

@@ -5,38 +5,42 @@
     android:layout_gravity="center"
     android:gravity="center" >
 
-    <!--<ImageView
-        android:id="@+id/articleImage"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:background="@drawable/white_message"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/articleimg"
-        android:contentDescription="@+id/Beer"
-        />-->
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:layout_marginTop="5sp">
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="10sp"
-        android:paddingTop="5sp"
-        android:paddingBottom="25sp"/>
+        <TextView
+            android:id="@+id/time"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="12sp"
+            android:paddingTop="5sp"
+            android:paddingBottom="25sp"/>
 
-    <TextView
-        android:id="@+id/chatname"
-        android:layout_below="@id/chatname"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20sp"
-        android:padding="15sp"/>
+        <TextView
+            android:id="@+id/chatname"
+            android:layout_below="@id/chatname"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="20sp"
+            android:paddingTop="18sp"
+            android:paddingBottom="12sp"
+            />
 
-    <TextView
-        android:id="@+id/chatid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/chatid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

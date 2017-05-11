@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +27,7 @@ import com.example.mychatbot.Utilities.MyVolley;
 import com.example.mychatbot.Utilities.SharedPrefManager;
 import com.facebook.AccessToken;
 import com.facebook.Profile;
+import com.facebook.login.LoginManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,8 +43,7 @@ import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button settingsButton;
-    private Button friendlistButton;
+    private ImageButton friendlistButton;
     private FrameLayout frame_text_empty;
     private TextView text_empty;
     private ListView view;
@@ -55,15 +58,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_home);
         context = getApplicationContext();
 
-        settingsButton=(Button)findViewById(R.id.settings_button);
-        friendlistButton=(Button)findViewById(R.id.friendlist_button);
+        friendlistButton=(ImageButton)findViewById(R.id.friendlist_button);
         frame_text_empty=(FrameLayout)findViewById(R.id.frame_text_empty);
         text_empty=(TextView)findViewById(R.id.text_empty);
         view = (ListView) findViewById(R.id.list);
 
         chatsList = new ArrayList<>();
 
-        settingsButton.setOnClickListener(this);
         friendlistButton.setOnClickListener(this);
 
         loadList();
@@ -77,9 +78,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v==settingsButton){
-            startActivity(new Intent(context, SettingsActivity.class));
-        } else if (v==friendlistButton){
+        if (v==friendlistButton){
             startActivity(new Intent(context, FriendlistActivity.class));
         }
     }
@@ -155,5 +154,70 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             frame_text_empty.removeView(text_empty);
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        super.onCreateOptionsMenu(menu);
+        int base=Menu.FIRST;
+        MenuItem item1=menu.add(base,1,1,"Logout");
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        System.out.println("item="+item.getItemId());
+        if (item.getItemId()==1) {
+            LoginManager.getInstance().logOut();
+            logOut();
+        } else
+            return super.onOptionsItemSelected(item);
+        return true;
+    }
+
+    private void logOut() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Logging out...");
+        progressDialog.show();
+
+        final String fb_id = SharedPrefManager.getInstance(this).getFacebookId();
+
+        if (fb_id == null) {
+            progressDialog.dismiss();
+            Toast.makeText(this, "fb token for this app is empty", Toast.LENGTH_LONG).show();
+        }
+
+        StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_LOGOUT_USER,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            Toast.makeText(HomeActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                            System.out.println(obj.getString("message"));
+                            if(obj.getString("message").equals("Logout Succesful")){
+                                startActivity(new Intent(context, MainActivity.class));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("fbid", fb_id);
+                return params;
+            }
+        };
+
+        MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 }

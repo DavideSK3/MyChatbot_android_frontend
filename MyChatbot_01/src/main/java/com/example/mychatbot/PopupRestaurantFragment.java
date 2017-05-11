@@ -38,7 +38,6 @@ public class PopupRestaurantFragment extends Fragment{
     private TextView distance;
     private TextView desc;
     private ImageButton phone;
-    private ImageButton maps;
     private ImageButton email;
     private ImageButton url;
 
@@ -80,7 +79,6 @@ public class PopupRestaurantFragment extends Fragment{
         distance = (TextView) view.findViewById(R.id.distance);
         desc = (TextView) view.findViewById(R.id.desc);
         phone = (ImageButton) view.findViewById(R.id.phone);
-        maps = (ImageButton) view.findViewById(R.id.maps);
         email = (ImageButton) view.findViewById(R.id.email);
         url = (ImageButton) view.findViewById(R.id.url);
 
@@ -107,13 +105,6 @@ public class PopupRestaurantFragment extends Fragment{
             public void onSwipeTop() {
             }
             public void onSwipeBottom() {
-            }
-        });
-
-        maps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IntentUtils.showDirections(context,restaurants.get(currentIndex).getLat(),restaurants.get(currentIndex).getLon());
             }
         });
 

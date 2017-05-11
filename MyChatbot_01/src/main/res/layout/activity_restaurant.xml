@@ -61,18 +61,19 @@
 
         <ImageButton
             android:id="@+id/phone"
-            android:background="@drawable/bluebutton_deep"
+            android:background="@drawable/blue_button"
             android:layout_width="60sp"
             android:layout_height="70sp"
             android:src="@drawable/phone"
             android:scaleType="fitCenter"
+            android:padding="10sp"
             android:adjustViewBounds="true"
             android:layout_weight="1"
             android:visibility="gone"
             />
         <ImageButton
             android:id="@+id/email"
-            android:background="@drawable/greenbutton_deep"
+            android:background="@drawable/green_button"
             android:layout_marginLeft="2sp"
             android:layout_width="60sp"
             android:layout_height="70sp"
@@ -85,7 +86,7 @@
             />
         <ImageButton
             android:id="@+id/url"
-            android:background="@drawable/bluebutton_deep"
+            android:background="@drawable/blue_button"
             android:layout_width="60sp"
             android:layout_marginLeft="2sp"
             android:layout_height="70sp"
@@ -96,13 +97,15 @@
             android:layout_weight="1"
             android:visibility="gone"
             />
-        <Button
+        <ImageButton
             android:id="@+id/suggest"
-            android:background="@drawable/greenbutton_deep"
+            android:background="@drawable/green_button"
+            android:layout_width="60sp"
+            android:layout_height="70sp"
             android:layout_marginLeft="2sp"
-            android:text="Suggest!"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:src="@drawable/send"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:layout_weight="1"
             android:padding="10sp"
             android:visibility="gone"/>

@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:layout_marginLeft="5sp"
+    android:layout_marginRight="5sp">
 
     <TextView
         android:id="@+id/timeL"
@@ -21,31 +23,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <ImageButton
-        android:id="@+id/chatbotL"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:src="@drawable/icon_centered"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:layout_margin="10sp"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-
-    <ImageButton
-        android:id="@+id/chatbotR"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:src="@drawable/icon_centered"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:layout_margin="10sp"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-
     <LinearLayout
         android:id="@+id/message_containerL"
         android:layout_width="wrap_content"
@@ -54,16 +31,35 @@
         app:layout_constraintTop_toBottomOf="@+id/timeL"
         app:layout_constraintLeft_toLeftOf="parent">
 
-        <TextView
-            android:id="@+id/contentL"
+        <ImageButton
+            android:id="@+id/chatbotR"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:src="@drawable/icon_centered"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:visibility="gone"
+            android:background="@null"
+            android:layout_marginLeft="5sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/message_containerL"/>
+
+        <LinearLayout
+            android:id="@+id/message_backgroundL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20sp"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:paddingBottom="10sp"
-             />
+            android:padding="5sp">
+            <TextView
+                android:id="@+id/contentL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="20sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:paddingBottom="10sp"
+                 />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -74,17 +70,37 @@
         app:layout_constraintTop_toBottomOf="@+id/timeR"
         app:layout_constraintRight_toRightOf="parent">
 
-        <TextView
-            android:id="@+id/contentR"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20sp"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:paddingBottom="10sp"
-             />
+        <ImageButton
+            android:id="@+id/chatbotL"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:src="@drawable/icon_centered"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:visibility="gone"
+            android:background="@null"
+            android:layout_marginRight="5sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/message_containerL"/>
+
+    <LinearLayout
+        android:id="@+id/message_backgroundR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5sp">
+            <TextView
+                android:id="@+id/contentR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="20sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:paddingBottom="10sp"
+                 />
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

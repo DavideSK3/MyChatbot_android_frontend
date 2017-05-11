@@ -51,7 +51,7 @@ public class RestaurantActivity extends AppCompatActivity {
     private ImageButton phone;
     private ImageButton email;
     private ImageButton url;
-    private Button suggest;
+    private ImageButton suggest;
 
     private Restaurant restaurant;
     private ProgressDialog progressDialog;
@@ -75,7 +75,7 @@ public class RestaurantActivity extends AppCompatActivity {
         phone = (ImageButton) findViewById(R.id.phone);
         email = (ImageButton) findViewById(R.id.email);
         url = (ImageButton) findViewById(R.id.url);
-        suggest = (Button) findViewById(R.id.suggest);
+        suggest = (ImageButton) findViewById(R.id.suggest);
         context = this;
 
         Intent intent = getIntent();

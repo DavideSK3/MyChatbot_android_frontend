@@ -61,7 +61,7 @@ public class ChatActivity extends AppCompatActivity {
     private TextView chatName;
     private ListView list;
     private EditText text;
-    private Button send;
+    private ImageButton send;
 
     private ArrayList<Message> messageList;
     private MessageListAdapter mlAdapter;
@@ -82,7 +82,7 @@ public class ChatActivity extends AppCompatActivity {
         chatName = (TextView) findViewById(R.id.chatname);
         list = (ListView) findViewById(R.id.list);
         text = (EditText) findViewById(R.id.text);
-        send = (Button) findViewById(R.id.send);
+        send = (ImageButton) findViewById(R.id.send);
         send.setEnabled(false);
 
         context = this;

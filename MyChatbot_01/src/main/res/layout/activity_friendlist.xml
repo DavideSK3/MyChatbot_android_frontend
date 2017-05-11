@@ -28,8 +28,12 @@
         android:id="@+id/update"
         android:text="Sync FB friends"
         android:layout_width="wrap_content"
+        android:padding="10sp"
+        android:layout_margin="10sp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/blue_button"
+        android:textColor="#FFFFFF"/>
 
 </RelativeLayout>

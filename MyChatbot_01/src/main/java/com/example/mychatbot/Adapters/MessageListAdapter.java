@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mychatbot.MovieActivity;
@@ -66,6 +67,8 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
             content = (TextView) view
                     .findViewById(R.id.contentR);
             content.setText(message.getContent());
+            LinearLayout messagecontainer = (LinearLayout) view.findViewById(R.id.message_backgroundR);
+            messagecontainer.setBackgroundResource(R.drawable.green_button);
 
             if(!message.getIntent().equals("null") && !message.getIntent().equals("")) {
                 ImageButton button = (ImageButton) view
@@ -128,6 +131,9 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
             content = (TextView) view
                     .findViewById(R.id.contentL);
             content.setText(message.getContent());
+
+            LinearLayout messagecontainer = (LinearLayout) view.findViewById(R.id.message_backgroundL);
+            messagecontainer.setBackgroundResource(R.drawable.white_message);
 
             if(!message.getIntent().equals("null") &&  !message.getIntent().equals("")) {
                 ImageButton button = (ImageButton) view

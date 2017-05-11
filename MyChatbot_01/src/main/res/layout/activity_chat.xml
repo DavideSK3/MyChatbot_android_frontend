@@ -35,12 +35,17 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="9"/>
-        <Button android:id="@+id/send"
+        <ImageButton android:id="@+id/send"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
-            android:text="Send"
-            android:layout_centerHorizontal="true"/>
+            android:layout_margin="5sp"
+        android:background="@drawable/blue_button"
+        android:textColor="#FFFFFF"
+            android:padding="10sp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:src="@drawable/send"/>
     </LinearLayout>
 
     <ListView
@@ -48,6 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         android:layout_above="@+id/footer"
         android:layout_below="@+id/header"/>
 
