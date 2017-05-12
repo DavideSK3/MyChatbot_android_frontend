@@ -2,6 +2,8 @@ package com.example.mychatbot.Services;
 
 /**
  * Created by david on 19/04/2017.
+ *
+ *  Service allowing the app to constantly receive push notification from Firebase service
  */
 
 import android.content.Intent;
@@ -37,36 +39,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
 
-    //this method will display the notification
-    //We are passing the JSONObject that is received from
-    //firebase cloud messaging
+    //this method will display the notification from json file
     private void sendPushNotification(JSONObject json) {
-        //optionally we can display the json into log
         Log.e(TAG, "Notification JSON " + json.toString());
         try {
-            //getting the json data
             JSONObject data = json.getJSONObject("data");
 
-            //parsing json data
             String title = data.getString("title");
             String message = data.getString("message");
+            if(message.startsWith("Check out:<u><font")){
+                message = "Check out what I shared with you";
+            }
             String imageUrl = data.getString("image");
 
-            //creating MyNotificationManager object
             MyNotificationManager mNotificationManager = new MyNotificationManager(getApplicationContext());
 
-            //creating an intent for the notification
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             System.out.println("context:  "+getApplicationContext());
 
-            //if there is no image
+            //for the moment images aren't really implemented in the app
             if (imageUrl.equals("null")) {
-                //displaying small notification
                 mNotificationManager.showSmallNotification(title, message, intent);
             } else {
                 //if there is an image
-                //displaying a big notification
-                //mNotificationManager.showBigNotification(title, message, imageUrl, intent);
             }
         } catch (JSONException e) {
             Log.e(TAG, "Json Exception: " + e.getMessage());

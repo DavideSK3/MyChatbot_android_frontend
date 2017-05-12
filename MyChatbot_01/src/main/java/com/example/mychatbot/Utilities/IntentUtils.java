@@ -6,6 +6,9 @@ import android.net.Uri;
 
 /**
  * Created by david on 02/05/2017.
+ *
+ * Intents to launche preinstalled activity to access contextual information
+ * for restaurant (send email, dial number, look website, open maps)
  */
 
 public class IntentUtils {

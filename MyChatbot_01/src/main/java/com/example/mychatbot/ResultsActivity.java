@@ -76,8 +76,8 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
     private String chatid;
     private String chatname;
     private String lat = "46.0741662"; //initialized for trento
-    private String lon = "11.1204982";
-    private String gps_lat = ""; //initialized for trento
+    private String lon = "11.1204982"; //initialized for trento
+    private String gps_lat = "";
     private String gps_lon = "";
 
     @Override
@@ -140,6 +140,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
 
     }
 
+    //wraps fetcher methods whether restaurant or movie intent is found by NLP
     private void fetchListWrapper(){
         if(intento.equals("restaurant")) {
             fetchRestaurantList();
@@ -150,6 +151,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         }
     }
 
+    //fetch the list of restaurants for the currently set location (default,search,gps)
     private void fetchRestaurantList(){
 
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_GET_RESTAURANTS,
@@ -177,7 +179,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ResultsActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ResultsActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -194,6 +196,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
 
     }
 
+    //fetch the list of movies available in nearby cinemas
     private void fetchMovieList(){
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_GET_MOVIES,
                 new Response.Listener<String>() {
@@ -220,7 +223,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ResultsActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ResultsActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -234,6 +237,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //wraps loading listview methods
     private void loadListWrapper(){
         if(intento.equals("restaurant")) {
             place.setVisibility(View.VISIBLE);
@@ -250,6 +254,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
 
     }
 
+    //loads listview with restaurants fetched
     private void loadRestaurantList(){
         rlAdapter = new RestaurantListAdapter(this,context, R.layout.restaurantrowlayout, restaurantList,lat,lon);
         list.setAdapter(rlAdapter);
@@ -269,6 +274,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         list.setSelectionAfterHeaderView();
     }
 
+    //loads listview with movies fetched
     private void loadMovieList(){
         mlAdapter = new MovieListAdapter(this,context,R.layout.movierowlayout,movieList);
         list.setAdapter(mlAdapter);
@@ -287,6 +293,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         list.setSelectionAfterHeaderView();
     }
 
+    //initializes the location manager (gps and network based)
     private void initLocationManager(){
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
@@ -297,6 +304,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 10, this);
     }
 
+    //creates a String containing the address from a location in coordinates lat/long
     private void setAddressFromLocation(){
         Geocoder geocoder;
         List<Address> addresses = null;
@@ -316,6 +324,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         place.setText(address);
     }
 
+    //gets the coordinates from the input string, representing an address
     public void setLocationFromAddress(String strAddress){
 
         Geocoder coder = new Geocoder(this);
@@ -337,6 +346,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         }
     }
 
+    //an intent to activate gps is created when gps is off, otherwise informs the user to wait for the device to track location
     private void promptLocationUnavailable() {
         int off = 0;
         try {
@@ -353,6 +363,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         }
     }
 
+    //when current location is detected, lat and long variables are updated
     @Override
     public void onLocationChanged(Location location) {
         gps_lat = String.valueOf(location.getLatitude());

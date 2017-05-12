@@ -6,6 +6,8 @@ import java.sql.Timestamp;
 
 /**
  * Created by david on 06/05/2017.
+ *
+ * Utility methods to modify strings/values
  */
 
 public class MyMethods {

@@ -8,13 +8,13 @@
     </item>
 
     <!--top, dark, inner shadow-->
-    <item
+    <!--<item
         android:bottom="@dimen/depth">
         <shape android:shape="rectangle">
             <corners android:radius="@dimen/radius" />
             <solid android:color="#4DFFFFFF" />
         </shape>
-    </item>
+    </item>-->
 
     <!--bottom, light, outer glow-->
     <item

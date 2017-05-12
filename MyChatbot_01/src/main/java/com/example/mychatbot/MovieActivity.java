@@ -94,6 +94,7 @@ public class MovieActivity extends AppCompatActivity {
         getMovie();
         loadScheduleList();
 
+        //adds a swipe listener to the activity to manage scrolling between dates and sharing a movie with friend
         layout_activity.setOnTouchListener(new OnSwipeTouchListener(context){
 
             public void onSwipeRight() {
@@ -132,6 +133,7 @@ public class MovieActivity extends AppCompatActivity {
         });
     }
 
+    //gets info about current movie
     private void getMovie() {
         System.out.println("Querying for restaurant: "+movieid);
 
@@ -157,7 +159,7 @@ public class MovieActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MovieActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(MovieActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -172,6 +174,7 @@ public class MovieActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //gets the schedule list in near cinemas for the next week
     private void fetchScheduleList(){
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_GET_SCHEDULES,
                 new Response.Listener<String>() {
@@ -197,7 +200,7 @@ public class MovieActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MovieActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(MovieActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -213,6 +216,7 @@ public class MovieActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //updates layout with movie content
     private void setMovieContent(){
         name.setText(movie.getName());
         length.setText(Html.fromHtml("<b>Length:</b> "+movie.getLength()), TextView.BufferType.SPANNABLE);
@@ -223,6 +227,7 @@ public class MovieActivity extends AppCompatActivity {
 
     }
 
+    //updates listview with schedules list
     private void loadScheduleList(){
         updateTodayScheduleList();
         slAdapter = new ScheduleListAdapter(this,context,R.layout.schedulerowlayout,todayScheduleList);
@@ -230,6 +235,7 @@ public class MovieActivity extends AppCompatActivity {
         list.setSelectionAfterHeaderView();
     }
 
+    //when swiping left/right, yesterday's or tomorrow's schedule is loaded for current film
     private void updateTodayScheduleList(){
         for(int i=0;i<scheduleList.size();i++){
             int flag = -1;
@@ -250,6 +256,7 @@ public class MovieActivity extends AppCompatActivity {
         System.out.println("todayschedule list "+todayScheduleList);
     }
 
+    //when swiping towards top of the screen, the current movie/schedule day page is shared as a message
     private void sendMessage() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Suggesting movie..."+movie.getName());
@@ -304,6 +311,7 @@ public class MovieActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //a push notification is created when message is succesfully sent
     private void sendNotification(final String content) {
 
         final String fb_id = SharedPrefManager.getInstance(this).getFacebookId();
@@ -337,7 +345,6 @@ public class MovieActivity extends AppCompatActivity {
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
-
 
     @Override
     protected void onResume(){

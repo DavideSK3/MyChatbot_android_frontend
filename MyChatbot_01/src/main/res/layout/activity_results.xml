@@ -58,7 +58,11 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
         android:layout_gravity="center"
+        android:dividerHeight="5sp"
+        android:divider="@null"
         android:layout_below="@+id/header"/>
 
 </RelativeLayout>

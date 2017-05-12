@@ -165,6 +165,7 @@ public class ChatActivity extends AppCompatActivity {
         unregisterReceiver(broadcastReceiver);
     }
 
+    //Updates messages
     private void fetchMessageList() {
         //progressDialog = new ProgressDialog(this);
         //progressDialog.setMessage("Fetching messages...");
@@ -201,7 +202,7 @@ public class ChatActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //progressDialog.dismiss();
-                        Toast.makeText(ChatActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(ChatActivity.this,"Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -216,6 +217,7 @@ public class ChatActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //loads messagelist into listview
     private void loadList() {
         mlAdapter = new MessageListAdapter(this, R.layout.messagerowlayout, messageList, thisChatid, thisChatname);
         list.setAdapter(mlAdapter);
@@ -230,6 +232,7 @@ public class ChatActivity extends AppCompatActivity {
         list.setSelection(mlAdapter.getCount() - 1);
     }
 
+    //sends a new message
     private void sendMessage(final String i) {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Sendind message with intent..."+i);
@@ -281,6 +284,7 @@ public class ChatActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //sends a notification when message is succesfully sent
     private void sendNotification(final String content) {
 
         final String fb_id = SharedPrefManager.getInstance(this).getFacebookId();
@@ -315,6 +319,7 @@ public class ChatActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //calls WitAi Natural Language Processor to extrapolate intent from message
     private void callWitAi() {
 
         final String witai_token = SharedPrefManager.getInstance(this).getWitAiToken();
@@ -367,7 +372,7 @@ public class ChatActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Toast.makeText(ChatActivity.this,"Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 

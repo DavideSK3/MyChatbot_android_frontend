@@ -10,6 +10,8 @@ import java.io.InputStream;
 
 /**
  * Created by david on 10/05/2017.
+ *
+ * Async Task to download image from url
  */
 
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

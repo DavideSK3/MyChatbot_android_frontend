@@ -2,6 +2,8 @@ package com.example.mychatbot.Utilities;
 
 /**
  * Created by david on 10/04/2017.
+ *
+ * Library used to perform GET and POST requests to endpoints (DB, Facebook, Maps)
  */
 
 import android.content.Context;
@@ -36,8 +38,6 @@ public class MyVolley {
 
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
-            // getApplicationContext() is key, it keeps you from leaking the
-            // Activity or BroadcastReceiver if someone passes one in.
             mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
         }
         return mRequestQueue;

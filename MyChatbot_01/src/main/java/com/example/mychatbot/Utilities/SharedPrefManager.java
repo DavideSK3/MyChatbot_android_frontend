@@ -11,6 +11,8 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 /**
  * Created by david on 08/04/2017.
+ *
+ * Stores some useful and frequently used data in a local sharedPreference instance
  */
 
 public class SharedPrefManager {
@@ -19,7 +21,7 @@ public class SharedPrefManager {
     private static final String TAG_TOKEN_FIREBASE = "tagtokenfirebase";
     private static final String TAG_TOKEN_FACEBOOK = "tagtokenfacebook";
     private static final String TAG_TOKEN_WITAI = "tagtokenwitai";
-    private static final String token_witai = "HFGP66IOUMMBHVLDQ6AEWUOEDQUIOL2A";
+    private static final String token_witai = "HFGP66IOUMMBHVLDQ6AEWUOEDQUIOL2A"; //token from my NLP system on WitAi
 
 
     private static SharedPrefManager mInstance;

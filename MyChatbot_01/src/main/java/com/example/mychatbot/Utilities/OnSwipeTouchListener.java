@@ -7,6 +7,8 @@ import android.view.View;
 
 /**
  * Created by david on 07/05/2017.
+ *
+ * implements method to recognize when users swipes on the screen in a certain direction
  */
 
 
@@ -41,12 +43,11 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
                 float diffX = e2.getX() - e1.getX();
 
                 System.out.println("flinged "+diffX+" "+diffY);
-
                 System.out.println("flinged "+velocityX+" "+velocityY);
+
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
 
-                        System.out.println("into a fling");
                         if (diffX > 0) {
                             onSwipeRight();
                         } else {
@@ -56,8 +57,6 @@ public class OnSwipeTouchListener implements View.OnTouchListener {
                     }
                 }
                 else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-
-                    System.out.println("into a fling");
                     if (diffY > 0) {
                         onSwipeBottom();
                     } else {

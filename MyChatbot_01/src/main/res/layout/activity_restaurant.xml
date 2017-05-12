@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_activity"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,55 +9,70 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/colorPrimaryDark"
         android:padding="10sp"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"/>
 
-    <TextView
-        android:id="@+id/address"
+    <RelativeLayout
+        android:id="@+id/infos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="17sp"
-        android:paddingTop="10sp"
+        android:layout_below="@id/name"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/name">
-    </TextView>
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:background="@drawable/white_message"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:paddingTop="10sp"
+            android:layout_centerHorizontal="true">
+        </TextView>
 
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="17sp"
-        android:paddingBottom="10sp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/address">
-    </TextView>
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:paddingBottom="10sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/address">
+        </TextView>
 
-    <TextView
-        android:id="@+id/desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:padding="15sp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/distance">
-    </TextView>
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:paddingBottom="15sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/distance"
+            android:background="@drawable/white_message">
+        </TextView>
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/mappa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/desc"
+        android:layout_below="@+id/infos"
         android:layout_above="@+id/buttons"/>
 
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="10sp"
         android:layout_alignParentBottom="true">
 
         <ImageButton
@@ -97,18 +113,6 @@
             android:layout_weight="1"
             android:visibility="gone"
             />
-        <ImageButton
-            android:id="@+id/suggest"
-            android:background="@drawable/green_button"
-            android:layout_width="60sp"
-            android:layout_height="70sp"
-            android:layout_marginLeft="2sp"
-            android:src="@drawable/send"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:layout_weight="1"
-            android:padding="10sp"
-            android:visibility="gone"/>
 
     </LinearLayout>
 

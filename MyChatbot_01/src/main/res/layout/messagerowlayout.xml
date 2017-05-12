@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginLeft="5sp"
-    android:layout_marginRight="5sp">
+    android:layout_gravity="center">
 
     <TextView
         android:id="@+id/timeL"
@@ -27,22 +25,8 @@
         android:id="@+id/message_containerL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="50dp"
         app:layout_constraintTop_toBottomOf="@+id/timeL"
         app:layout_constraintLeft_toLeftOf="parent">
-
-        <ImageButton
-            android:id="@+id/chatbotR"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
-            android:src="@drawable/icon_centered"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:visibility="gone"
-            android:background="@null"
-            android:layout_marginLeft="5sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/message_containerL"/>
 
         <LinearLayout
             android:id="@+id/message_backgroundL"
@@ -53,6 +37,8 @@
                 android:id="@+id/contentL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
+                android:maxWidth="220sp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="20sp"
                 android:layout_marginLeft="10sp"
@@ -60,6 +46,17 @@
                 android:paddingBottom="10sp"
                  />
         </LinearLayout>
+        <ImageButton
+            android:id="@+id/chatbotR"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:src="@drawable/icon_centered"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:visibility="gone"
+            android:background="@null"
+            android:layout_marginLeft="5sp"
+            android:layout_marginStart="5sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -79,10 +76,7 @@
             android:adjustViewBounds="true"
             android:visibility="gone"
             android:background="@null"
-            android:layout_marginRight="5sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/message_containerL"/>
+            android:layout_marginRight="5sp"/>
 
     <LinearLayout
         android:id="@+id/message_backgroundR"

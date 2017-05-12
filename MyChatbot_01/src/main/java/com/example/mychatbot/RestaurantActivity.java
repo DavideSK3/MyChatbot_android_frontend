@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.example.mychatbot.Utilities.DownloadImageTask;
 import com.example.mychatbot.Utilities.EndPoints;
 import com.example.mychatbot.Utilities.IntentUtils;
 import com.example.mychatbot.Utilities.MyVolley;
+import com.example.mychatbot.Utilities.OnSwipeTouchListener;
 import com.example.mychatbot.Utilities.SharedPrefManager;
 
 import org.json.JSONArray;
@@ -48,10 +50,11 @@ public class RestaurantActivity extends AppCompatActivity {
     private TextView distance;
     private TextView desc;
     private ImageView map;
+    private RelativeLayout infos;
     private ImageButton phone;
     private ImageButton email;
     private ImageButton url;
-    private ImageButton suggest;
+    private RelativeLayout layout_activity;
 
     private Restaurant restaurant;
     private ProgressDialog progressDialog;
@@ -72,10 +75,12 @@ public class RestaurantActivity extends AppCompatActivity {
         distance = (TextView) findViewById(R.id.distance);
         desc = (TextView) findViewById(R.id.desc);
         map = (ImageView) findViewById(R.id.mappa);
+        infos = (RelativeLayout) findViewById(R.id.infos);
         phone = (ImageButton) findViewById(R.id.phone);
         email = (ImageButton) findViewById(R.id.email);
         url = (ImageButton) findViewById(R.id.url);
-        suggest = (ImageButton) findViewById(R.id.suggest);
+        layout_activity = (RelativeLayout) findViewById(R.id.layout_activity);
+
         context = this;
 
         Intent intent = getIntent();
@@ -89,8 +94,27 @@ public class RestaurantActivity extends AppCompatActivity {
         }catch(Exception e){}
 
         getRestaurant();
+
+        //set swipe listener to share restaurant with friend
+        layout_activity.setOnTouchListener(new OnSwipeTouchListener(context){
+
+            public void onSwipeRight() {
+            }
+
+            public void onSwipeLeft() {
+            }
+
+            public void onSwipeTop() {
+                if (chatid!=null){
+                    sendMessage();
+                }
+            }
+            public void onSwipeBottom() {
+            }
+        });
     }
 
+    //gets chosen restaurant from DB
     private void getRestaurant() {
 
         System.out.println("Querying for restaurant: "+restaurantid);
@@ -120,7 +144,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(RestaurantActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(RestaurantActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -136,6 +160,7 @@ public class RestaurantActivity extends AppCompatActivity {
 
     }
 
+    //set layout content and gets a static preview of the location via google maps
     private void setContent(){
         name.setText(restaurant.getName());
         address.setText(restaurant.getStreet()+", "+restaurant.getNumber()+" "+restaurant.getCity());
@@ -144,6 +169,7 @@ public class RestaurantActivity extends AppCompatActivity {
         } else {
             distance.setVisibility(View.GONE);
         }
+        infos.setVisibility(View.VISIBLE);
         desc.setText(restaurant.getDesc());
         new DownloadImageTask(map)
                 .execute("http://maps.google.com/maps/api/staticmap?center="+restaurant.getLat()+","+restaurant.getLon()+
@@ -152,6 +178,7 @@ public class RestaurantActivity extends AppCompatActivity {
 
     }
 
+    //sets listeners to the contextual buttons/image
     private void setListeners(){
 
         map.setVisibility(View.VISIBLE);
@@ -197,18 +224,9 @@ public class RestaurantActivity extends AppCompatActivity {
                 }
             }
         });
-
-        if (chatid!=null){
-            suggest.setVisibility(View.VISIBLE);
-            suggest.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sendMessage();
-                }
-            });
-        }
     }
 
+    //sends the current restaurant as a message
     private void sendMessage() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Suggesting restaurant..."+restaurant.getName());
@@ -264,6 +282,7 @@ public class RestaurantActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //creates a push notification when the message is sent succesfully
     private void sendNotification(final String content) {
 
         final String fb_id = SharedPrefManager.getInstance(this).getFacebookId();
@@ -297,5 +316,4 @@ public class RestaurantActivity extends AppCompatActivity {
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
-
 }

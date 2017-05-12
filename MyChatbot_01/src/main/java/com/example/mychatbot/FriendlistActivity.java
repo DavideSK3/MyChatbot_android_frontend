@@ -71,6 +71,7 @@ public class FriendlistActivity extends AppCompatActivity {
         fetchFriendList();
     }
 
+    //gets friendlist from DB
     private void fetchFriendList() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Fetching friends...");
@@ -104,7 +105,7 @@ public class FriendlistActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(FriendlistActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(FriendlistActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -119,6 +120,7 @@ public class FriendlistActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //loads list into listview
     private void loadList() {
         flAdapter= new FriendListAdapter(this, R.layout.friendrowlayout, friendList);
         view.setAdapter(flAdapter);
@@ -131,6 +133,7 @@ public class FriendlistActivity extends AppCompatActivity {
 
     }
 
+    //opens the chat for that friend, creating one if chat isn't already existing
     private void openChat(final String friendid) {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Fetching friends...");
@@ -161,7 +164,7 @@ public class FriendlistActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(FriendlistActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(FriendlistActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -178,6 +181,7 @@ public class FriendlistActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //Retrieves the list of fb friends which installed this app
     private void getFbFriends() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Updating friend list...");
@@ -209,7 +213,7 @@ public class FriendlistActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(FriendlistActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(FriendlistActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -223,6 +227,7 @@ public class FriendlistActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //Updates your friends by syncing them with FB users
     private void addFriend(final String friendid) {
 
         final String fb_id = SharedPrefManager.getInstance(this).getFacebookId();
@@ -244,7 +249,7 @@ public class FriendlistActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(FriendlistActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(FriendlistActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -259,5 +264,4 @@ public class FriendlistActivity extends AppCompatActivity {
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
-
 }

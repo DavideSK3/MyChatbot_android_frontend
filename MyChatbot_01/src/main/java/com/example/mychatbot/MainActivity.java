@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView info;
     private Context context;
     private String name;
+    private Boolean second_chance = true;
 
     private ProgressDialog progressDialog;
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         //get User token and check if it exists in DB
         tryLogin();
 
+        //Button paired with FB Login system
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -69,12 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-                info.setText("Login attempt canceled.");
+                info.setText("Login attempt canceled");
             }
 
             @Override
             public void onError(FacebookException e) {
-                info.setText("Login attempt failed.");
+                info.setText("Login attempt failed");
             }
         });
 
@@ -85,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
+    //tries if any User is linked to the current device, if yes, automatical login happens
+    //NB when the server is idle for some time it gets into sleep mode. This may cause the app to fail the automatical login at
+    //first launch. Please reopen the app in few seconds and the server should be ready to run.
     private void tryLogin() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Logging in...");
@@ -113,7 +118,12 @@ public class MainActivity extends AppCompatActivity {
                                 finish();
                             }
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            if(second_chance){
+                                second_chance=false;
+                                tryLogin();
+                            } else {
+                                Toast.makeText(MainActivity.this, "Server is booting, try again in few seconds", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 },
@@ -121,7 +131,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        if(second_chance){
+                            second_chance=false;
+                            tryLogin();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }) {
 
@@ -136,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //sign up the user by saving device infos paired with fb account, allowing further automatical logins
     private void signUp() {
 
         progressDialog = new ProgressDialog(this);
@@ -172,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -190,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //Retrieves some basic information from the Fb profile such as Name and Last name in order to sign up
     private void getFbNameThenSignUp() {
         final String fb_token = SharedPrefManager.getInstance(this).getFacebookToken();
 
@@ -216,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         System.out.println("error is : "+error.getMessage());
-                        Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 

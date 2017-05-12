@@ -25,6 +25,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ *
+ * UNUSED ACTIVITY, MAY BE ADDED IN FUTURE VERSIONS
+ *
  * Created by david on 15/04/2017.
  */
 

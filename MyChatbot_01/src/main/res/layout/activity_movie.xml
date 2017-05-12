@@ -12,6 +12,7 @@
         android:textSize="20sp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:paddingTop="10sp"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"/>
 
@@ -62,7 +63,9 @@
                 android:id="@+id/desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="10sp"
+                android:layout_marginTop="10sp"
+                android:padding="10sp"
+                android:background="@drawable/white_message"
                 android:layout_below="@+id/category"/>
 
         </RelativeLayout>
@@ -84,7 +87,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_below="@+id/schedule">
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:layout_below="@+id/schedule"
+        android:divider="@null"
+        android:dividerHeight="0dp"        >
     </ListView>
 
 

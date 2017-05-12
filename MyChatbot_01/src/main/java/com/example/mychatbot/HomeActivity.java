@@ -83,6 +83,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //gets the list of all chats in inverse chronological order
     private void fetchChatsList() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Fetching chats...");
@@ -118,7 +119,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(HomeActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 
@@ -133,6 +134,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    //loads chatlist into listview
     private void loadList(){
         clAdapter = new ChatsListAdapter(this, R.layout.chatrowlayout, chatsList);
         view.setAdapter(clAdapter);
@@ -156,6 +158,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //creates a Menu with logout option
     public boolean onCreateOptionsMenu(Menu menu){
         super.onCreateOptionsMenu(menu);
         int base=Menu.FIRST;
@@ -173,6 +176,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    //logs out the user
     private void logOut() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Logging out...");

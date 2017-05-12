@@ -68,7 +68,7 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
                     .findViewById(R.id.contentR);
             content.setText(message.getContent());
             LinearLayout messagecontainer = (LinearLayout) view.findViewById(R.id.message_backgroundR);
-            messagecontainer.setBackgroundResource(R.drawable.green_button);
+            messagecontainer.setBackgroundResource(R.drawable.lightgreen_message);
 
             if(!message.getIntent().equals("null") && !message.getIntent().equals("")) {
                 ImageButton button = (ImageButton) view
