@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:textSize="17sp"
             android:paddingTop="10sp"
+            android:gravity="center"
             android:layout_centerHorizontal="true">
         </TextView>
 
@@ -42,6 +43,7 @@
             android:layout_height="wrap_content"
             android:textSize="17sp"
             android:paddingBottom="10sp"
+            android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/address">
         </TextView>
@@ -52,6 +54,7 @@
             android:layout_height="wrap_content"
             android:textSize="17sp"
             android:paddingBottom="15sp"
+            android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/distance"
             android:background="@drawable/white_message">

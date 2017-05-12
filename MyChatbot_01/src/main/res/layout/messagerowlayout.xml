@@ -32,12 +32,23 @@
             android:id="@+id/message_backgroundL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:padding="5sp">
+
+            <ImageView
+            android:id="@+id/imageL"
+            android:layout_width="250sp"
+            android:layout_height="120sp"
+            android:visibility="gone"
+            android:paddingBottom="10sp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rounded"/>
+
             <TextView
                 android:id="@+id/contentL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:maxWidth="220sp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="20sp"
@@ -78,11 +89,23 @@
             android:background="@null"
             android:layout_marginRight="5sp"/>
 
-    <LinearLayout
-        android:id="@+id/message_backgroundR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5sp">
+        <LinearLayout
+            android:id="@+id/message_backgroundR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5sp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageR"
+                android:layout_width="250sp"
+                android:layout_height="150sp"
+                android:visibility="gone"
+                android:paddingBottom="10sp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:background="@drawable/rounded"/>
+
             <TextView
                 android:id="@+id/contentR"
                 android:layout_width="match_parent"

@@ -210,7 +210,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(HomeActivity.this, "Turn on Internet Connection to run this App!", Toast.LENGTH_LONG).show();
                     }
                 }) {
 

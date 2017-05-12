@@ -189,8 +189,9 @@ public class ChatActivity extends AppCompatActivity {
                                 String intent = arr.getJSONObject(i).getString("intent");
                                 String restaurant = arr.getJSONObject(i).getString("restaurant");
                                 String cinema = arr.getJSONObject(i).getString("cinema");
+                                String image = arr.getJSONObject(i).getString("image");
                                 //System.out.println("messages   "+sender +  content +  time);
-                                messageList.add(new Message(sender, content, time, intent, restaurant, cinema));
+                                messageList.add(new Message(sender, content, time, intent, restaurant, cinema, image));
                             }
                             loadList();
                         } catch (JSONException e) {
@@ -277,6 +278,8 @@ public class ChatActivity extends AppCompatActivity {
                 params.put("intent", i);
                 params.put("restaurant", "");
                 params.put("cinema", "");
+                params.put("image", "");
+                System.out.println("params send: "+params);
                 return params;
             }
         };

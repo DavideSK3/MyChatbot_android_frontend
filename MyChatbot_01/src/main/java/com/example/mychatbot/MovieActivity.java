@@ -304,6 +304,7 @@ public class MovieActivity extends AppCompatActivity {
                 params.put("intent", "");
                 params.put("restaurant", "");
                 params.put("cinema", movieid);
+                params.put("image", movie.getImage());
                 return params;
             }
         };

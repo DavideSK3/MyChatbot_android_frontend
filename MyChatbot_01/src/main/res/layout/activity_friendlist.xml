@@ -7,6 +7,7 @@
     <TextView
         android:id="@+id/text_friendlist"
         android:text="Friendlist"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
         android:maxWidth="200sp"
         android:padding="10sp"

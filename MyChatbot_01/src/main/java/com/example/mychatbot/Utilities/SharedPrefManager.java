@@ -16,6 +16,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
  */
 
 public class SharedPrefManager {
+    private static final String CLIENT_VERSION = "170512_01";
     private static final String SHARED_PREF_NAME = "FCMSharedPref";
     private static final String TAG_ID_FACEBOOK = "tagidfacebook";
     private static final String TAG_TOKEN_FIREBASE = "tagtokenfirebase";
@@ -29,6 +30,10 @@ public class SharedPrefManager {
 
     private SharedPrefManager(Context context) {
         mCtx = context;
+    }
+
+    public static String getClientVersion() {
+        return CLIENT_VERSION;
     }
 
     public static void fetchDeviceToken(){

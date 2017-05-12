@@ -116,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
                             if(obj.getString("message").equals("Succesfully Logged in")){
                                 startActivity(new Intent(context, HomeActivity.class));
                                 finish();
+                            } else if (obj.getString("message").equals("Outdated Client Version!")) {
+                                Toast.makeText(MainActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             if(second_chance){
@@ -144,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("token", token);
+                params.put("version", SharedPrefManager.getClientVersion());
                 return params;
             }
         };
@@ -176,12 +179,15 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             JSONObject obj = new JSONObject(response);
                             System.out.println("Signup:  "+obj.getString("message"));
-                            //Toast.makeText(MainActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                            if(obj.getString("error").equals("false")){
+                                startActivity(new Intent(context, HomeActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(MainActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        startActivity(new Intent(context, HomeActivity.class));
-                        finish();
                     }
                 },
                 new Response.ErrorListener() {
@@ -197,8 +203,8 @@ public class MainActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("fbid", fb_id);
                 params.put("token", token);
-                System.out.println("name is:  "+name);
                 params.put("name", name);
+                params.put("version", SharedPrefManager.getClientVersion());
                 return params;
             }
         };

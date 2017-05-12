@@ -13,14 +13,16 @@ public class Message {
     private String intent;
     private String restaurant;
     private String cinema;
+    private String image;
 
-    public Message(String sender, String content, String time,String intent, String restaurant, String cinema){
+    public Message(String sender, String content, String time,String intent, String restaurant, String cinema, String image){
         this.sender = sender;
         this.content = content;
         this.time = time;
         this.intent = intent;
         this.restaurant = restaurant;
         this.cinema = cinema;
+        this.image = image;
     }
 
     public String getSender(){
@@ -45,5 +47,9 @@ public class Message {
 
     public String getCinema() {
         return cinema;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

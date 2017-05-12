@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.example.mychatbot.Entities.Message;
 import com.example.mychatbot.R;
 import com.example.mychatbot.RestaurantActivity;
 import com.example.mychatbot.ResultsActivity;
+import com.example.mychatbot.Utilities.DownloadImageTask;
 import com.example.mychatbot.Utilities.MyMethods;
 import com.example.mychatbot.Utilities.SharedPrefManager;
 
@@ -69,6 +71,7 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
             content.setText(message.getContent());
             LinearLayout messagecontainer = (LinearLayout) view.findViewById(R.id.message_backgroundR);
             messagecontainer.setBackgroundResource(R.drawable.lightgreen_message);
+            ImageView image = (ImageView) view.findViewById(R.id.imageR);
 
             if(!message.getIntent().equals("null") && !message.getIntent().equals("")) {
                 ImageButton button = (ImageButton) view
@@ -89,6 +92,9 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
             }
             if(message.getRestaurant()!=null &&  !message.getRestaurant().equals("0")) {
                 content.setText(Html.fromHtml(message.getContent()), TextView.BufferType.SPANNABLE);
+                image.setVisibility(View.VISIBLE);
+                new DownloadImageTask(image)
+                        .execute(message.getImage());
                 content.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -104,6 +110,9 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
             }
             if(message.getCinema()!=null && !message.getCinema().equals("0")) {
                 content.setText(Html.fromHtml(message.getContent()), TextView.BufferType.SPANNABLE);
+                image.setVisibility(View.VISIBLE);
+                new DownloadImageTask(image)
+                        .execute(message.getImage());
                 content.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -134,6 +143,7 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
 
             LinearLayout messagecontainer = (LinearLayout) view.findViewById(R.id.message_backgroundL);
             messagecontainer.setBackgroundResource(R.drawable.white_message);
+            ImageView image = (ImageView) view.findViewById(R.id.imageL);
 
             if(!message.getIntent().equals("null") &&  !message.getIntent().equals("")) {
                 ImageButton button = (ImageButton) view
@@ -154,6 +164,9 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
             }
             if(message.getRestaurant()!=null && message.getRestaurant()!=("0")) {
                 content.setText(Html.fromHtml(message.getContent()), TextView.BufferType.SPANNABLE);
+                image.setVisibility(View.VISIBLE);
+                new DownloadImageTask(image)
+                        .execute(message.getImage());
                 content.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -169,6 +182,9 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
             }
             if(message.getCinema()!=null && message.getCinema()!=("0")) {
                 content.setText(Html.fromHtml(message.getContent()), TextView.BufferType.SPANNABLE);
+                image.setVisibility(View.VISIBLE);
+                new DownloadImageTask(image)
+                        .execute(message.getImage());
                 content.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -64,6 +64,7 @@ public class RestaurantActivity extends AppCompatActivity {
     private String chatname;
     private String restaurantid;
     private String distance_value;
+    private String map_preview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,10 +172,11 @@ public class RestaurantActivity extends AppCompatActivity {
         }
         infos.setVisibility(View.VISIBLE);
         desc.setText(restaurant.getDesc());
+        map_preview = "http://maps.google.com/maps/api/staticmap?center="+restaurant.getLat()+","+restaurant.getLon()+
+                "&zoom=16&size=500x250&maptype=roadmap&sensor=true&markers=color:red%7Clabel:R%7C"
+                +restaurant.getLat()+","+restaurant.getLon();
         new DownloadImageTask(map)
-                .execute("http://maps.google.com/maps/api/staticmap?center="+restaurant.getLat()+","+restaurant.getLon()+
-                        "&zoom=16&size=500x250&maptype=roadmap&sensor=true&markers=color:red%7Clabel:R%7C"
-                        +restaurant.getLat()+","+restaurant.getLon());
+                .execute(map_preview);
 
     }
 
@@ -275,6 +277,7 @@ public class RestaurantActivity extends AppCompatActivity {
                 params.put("intent", "");
                 params.put("restaurant", restaurantid);
                 params.put("cinema", "");
+                params.put("image", map_preview);
                 return params;
             }
         };
