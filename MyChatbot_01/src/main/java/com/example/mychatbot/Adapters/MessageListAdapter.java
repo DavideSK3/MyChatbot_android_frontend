@@ -83,6 +83,8 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
                         Intent openResultsActivityIntent = new Intent(mContext,
                                 ResultsActivity.class);
                         String intent = message.getIntent();
+                        String day = message.getDay();
+                        openResultsActivityIntent.putExtra(mContext.getPackageName() + ".day",day);
                         openResultsActivityIntent.putExtra(mContext.getPackageName() + ".intent",intent);
                         openResultsActivityIntent.putExtra(mContext.getPackageName() + ".chatid",chatid);
                         openResultsActivityIntent.putExtra(mContext.getPackageName() + ".chatname",chatname);
@@ -155,6 +157,8 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
                         Intent openResultsActivityIntent = new Intent(mContext,
                                 ResultsActivity.class);
                         String intent = message.getIntent();
+                        String day = message.getDay();
+                        openResultsActivityIntent.putExtra(mContext.getPackageName() + ".day",day);
                         openResultsActivityIntent.putExtra(mContext.getPackageName() + ".intent",intent);
                         openResultsActivityIntent.putExtra(mContext.getPackageName() + ".chatid",chatid);
                         openResultsActivityIntent.putExtra(mContext.getPackageName() + ".chatname",chatname);

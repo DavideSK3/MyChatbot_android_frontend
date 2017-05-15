@@ -75,6 +75,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
     private String intento;
     private String chatid;
     private String chatname;
+    private String day;
     private String lat = "46.0741662"; //initialized for trento
     private String lon = "11.1204982"; //initialized for trento
     private String gps_lat = "";
@@ -98,6 +99,14 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         intento = intent.getStringExtra(getPackageName() + ".intent");
         chatid = intent.getStringExtra(getPackageName() + ".chatid");
         chatname = intent.getStringExtra(getPackageName() + ".chatname");
+        day = intent.getStringExtra(getPackageName() + ".day");
+        if(day!=null) {
+            if (day.equals("")) {
+                System.out.println("Day is empty, setting it to today");
+                day = MyMethods.getTodayDate();
+            }
+        }
+        System.out.println("contextual day is : "+day);
 
         initLocationManager();
 
@@ -284,9 +293,9 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
                 Intent openRestaurantActivityIntent = new Intent(ResultsActivity.this,
                         MovieActivity.class);
                 openRestaurantActivityIntent.putExtra(getPackageName() + ".movieid",movieList.get(position).getId());
-                openRestaurantActivityIntent.putExtra(getPackageName() + ".day", MyMethods.getTodayDate());
                 openRestaurantActivityIntent.putExtra(getPackageName() + ".chatname",chatname);
                 openRestaurantActivityIntent.putExtra(getPackageName() + ".chatid",chatid);
+                openRestaurantActivityIntent.putExtra(getPackageName() + ".day",day);
                 startActivity(openRestaurantActivityIntent);
             }
         });

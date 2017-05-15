@@ -190,8 +190,10 @@ public class ChatActivity extends AppCompatActivity {
                                 String restaurant = arr.getJSONObject(i).getString("restaurant");
                                 String cinema = arr.getJSONObject(i).getString("cinema");
                                 String image = arr.getJSONObject(i).getString("image");
+                                String day = arr.getJSONObject(i).getString("day");
+                                System.out.println("dayyyy : "+day);
                                 //System.out.println("messages   "+sender +  content +  time);
-                                messageList.add(new Message(sender, content, time, intent, restaurant, cinema, image));
+                                messageList.add(new Message(sender, content, time, intent, restaurant, cinema, image, day));
                             }
                             loadList();
                         } catch (JSONException e) {
@@ -234,7 +236,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     //sends a new message
-    private void sendMessage(final String i) {
+    private void sendMessage(final String i, final String day) {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Sendind message with intent..."+i);
         progressDialog.show();
@@ -279,6 +281,7 @@ public class ChatActivity extends AppCompatActivity {
                 params.put("restaurant", "");
                 params.put("cinema", "");
                 params.put("image", "");
+                params.put("day", day);
                 System.out.println("params send: "+params);
                 return params;
             }
@@ -358,13 +361,17 @@ public class ChatActivity extends AppCompatActivity {
                             System.out.println("witaiOutput  " + witaiOutput);
                             if (!witaiOutput.equals("")) {
                                 if (witaiOutput.equals("restaurant")) {
-                                    sendMessage(witaiOutput);
+                                    sendMessage(witaiOutput,"");
                                 } else if (witaiOutput.equals("cinema")) {
-
-                                    sendMessage(witaiOutput);
+                                    String day="";
+                                    if(entities.has("datetime")){
+                                        day=getDatetime(entities.getJSONArray("datetime"));
+                                        System.out.println("Parsed day: "+day);
+                                    }
+                                    sendMessage(witaiOutput,day);
                                 }
                             } else {
-                                sendMessage("");
+                                sendMessage("","");
                                 //Toast.makeText(ChatActivity.this, "No Intent detected", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
@@ -390,4 +397,17 @@ public class ChatActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
+    private String getDatetime(JSONArray datetime){
+        String value ="";
+        try {
+            if(datetime.getJSONObject(datetime.length()-1).has("value")) {
+                value = datetime.getJSONObject(datetime.length() - 1).getString("value");
+            } else if(datetime.getJSONObject(datetime.length()-1).has("from")){
+                value = datetime.getJSONObject(datetime.length() - 1).getJSONObject("from").getString("value");
+            }
+        } catch (JSONException e) {
+        }
+
+        return value.substring(0,10);
+    }
 }

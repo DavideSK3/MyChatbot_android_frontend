@@ -14,8 +14,9 @@ public class Message {
     private String restaurant;
     private String cinema;
     private String image;
+    private String day;
 
-    public Message(String sender, String content, String time,String intent, String restaurant, String cinema, String image){
+    public Message(String sender, String content, String time,String intent, String restaurant, String cinema, String image, String day){
         this.sender = sender;
         this.content = content;
         this.time = time;
@@ -23,6 +24,7 @@ public class Message {
         this.restaurant = restaurant;
         this.cinema = cinema;
         this.image = image;
+        this.day = day;
     }
 
     public String getSender(){
@@ -51,5 +53,9 @@ public class Message {
 
     public String getImage() {
         return image;
+    }
+
+    public String getDay() {
+        return day;
     }
 }

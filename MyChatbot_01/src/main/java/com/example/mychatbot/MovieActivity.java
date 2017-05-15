@@ -92,7 +92,7 @@ public class MovieActivity extends AppCompatActivity {
         todayScheduleList = new ArrayList<>();
 
         getMovie();
-        loadScheduleList();
+        fetchScheduleList();
 
         //adds a swipe listener to the activity to manage scrolling between dates and sharing a movie with friend
         layout_activity.setOnTouchListener(new OnSwipeTouchListener(context){
@@ -180,8 +180,6 @@ public class MovieActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        scheduleList.clear();
-                        slAdapter.reset();
                         try {
                             JSONObject obj = new JSONObject(response);
                             JSONArray arr= obj.getJSONArray("schedules");
@@ -229,7 +227,14 @@ public class MovieActivity extends AppCompatActivity {
 
     //updates listview with schedules list
     private void loadScheduleList(){
+        for(int i=0;i<scheduleList.size();i++){
+            System.out.println("wholelist: "+scheduleList.get(i).getDay()+" "+scheduleList.get(i).getHour()+" "+scheduleList.get(i).getCinema());
+        }
+
         updateTodayScheduleList();
+        for(int i=0;i<todayScheduleList.size();i++){
+            System.out.println("todaywholelist: "+todayScheduleList.get(i).getDay()+" "+todayScheduleList.get(i).getHour()+" "+todayScheduleList.get(i).getCinema());
+        }
         slAdapter = new ScheduleListAdapter(this,context,R.layout.schedulerowlayout,todayScheduleList);
         list.setAdapter(slAdapter);
         list.setSelectionAfterHeaderView();
@@ -249,11 +254,11 @@ public class MovieActivity extends AppCompatActivity {
                 if(flag!=-1){
                     todayScheduleList.get(flag).setHour(todayScheduleList.get(flag).getHour()+" ; "+scheduleList.get(i).getHour());
                 } else {
-                    todayScheduleList.add(scheduleList.get(i));
+                    todayScheduleList.add(new Schedule(scheduleList.get(i).getId(),scheduleList.get(i).getCinema(),
+                                            scheduleList.get(i).getDay(),scheduleList.get(i).getHour()));
                 }
             }
         }
-        System.out.println("todayschedule list "+todayScheduleList);
     }
 
     //when swiping towards top of the screen, the current movie/schedule day page is shared as a message
@@ -347,11 +352,4 @@ public class MovieActivity extends AppCompatActivity {
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-
-        fetchScheduleList();
-
-    }
 }
