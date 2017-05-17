@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -86,6 +88,7 @@ public class MovieActivity extends AppCompatActivity {
         chatid = intent.getStringExtra(getPackageName() + ".chatid");
         chatname = intent.getStringExtra(getPackageName() + ".chatname");
         day = intent.getStringExtra(getPackageName()+".day");
+        context = this;
 
         day_view.setText(day);
         scheduleList = new ArrayList<>();
@@ -350,6 +353,25 @@ public class MovieActivity extends AppCompatActivity {
         };
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    //creates a Menu with help option
+    public boolean onCreateOptionsMenu(Menu menu){
+        super.onCreateOptionsMenu(menu);
+        int base=Menu.FIRST;
+        MenuItem item1=menu.add(base,1,1,"Help");
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        System.out.println("item="+item.getItemId());
+        if (item.getItemId()==1){
+            Toast.makeText(this, "Swipe Up to share this day and Movie schedule as a message.\n" +
+                            "Swipe left/right to check this movie's schedule for the day before/after the current one.",
+                    Toast.LENGTH_LONG).show();
+        }else {
+            return super.onOptionsItemSelected(item);
+        }return true;
     }
 
 }

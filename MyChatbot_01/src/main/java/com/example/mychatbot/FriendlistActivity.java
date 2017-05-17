@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -23,6 +25,7 @@ import com.example.mychatbot.Utilities.MyVolley;
 import com.example.mychatbot.Utilities.SharedPrefManager;
 import com.facebook.AccessToken;
 import com.facebook.Profile;
+import com.facebook.login.LoginManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -263,5 +266,24 @@ public class FriendlistActivity extends AppCompatActivity {
         };
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    //creates a Menu with help option
+    public boolean onCreateOptionsMenu(Menu menu){
+        super.onCreateOptionsMenu(menu);
+        int base=Menu.FIRST;
+        MenuItem item1=menu.add(base,1,1,"Help");
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        System.out.println("item="+item.getItemId());
+        if (item.getItemId()==1){
+            Toast.makeText(this, "Click on a friend to start chatting with him/her.\n" +
+                                    "Click on sync button to retrieve Facebook friends that are using this app.",
+                                    Toast.LENGTH_LONG).show();
+        }else {
+            return super.onOptionsItemSelected(item);
+        }return true;
     }
 }

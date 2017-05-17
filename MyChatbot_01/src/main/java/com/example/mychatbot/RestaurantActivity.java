@@ -2,14 +2,18 @@ package com.example.mychatbot;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -318,5 +322,27 @@ public class RestaurantActivity extends AppCompatActivity {
         };
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    //creates a Menu with help option
+    public boolean onCreateOptionsMenu(Menu menu){
+        super.onCreateOptionsMenu(menu);
+        int base=Menu.FIRST;
+        MenuItem item1=menu.add(base,1,1,"Help");
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        System.out.println("item="+item.getItemId());
+        if (item.getItemId()==1){
+            Toast.makeText(this, "Swipe Up on the Restaurant's Name/Description to share it as a message.\n" +
+                            "Click on the map preview to find the restaurant on Google Maps.",
+                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"The buttons on the bottom allow you to open the dialer, send an email" +
+                            " and open the website when these information about the restaurant are available.",
+                    Toast.LENGTH_LONG).show();
+        }else {
+            return super.onOptionsItemSelected(item);
+        }return true;
     }
 }

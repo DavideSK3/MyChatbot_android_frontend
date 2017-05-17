@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/text_friendlist"
-        android:text="Friendlist"
+        android:text="@string/friendlist"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
         android:maxWidth="200sp"
@@ -27,7 +27,7 @@
 
     <Button
         android:id="@+id/update"
-        android:text="Sync FB friends"
+        android:text="@string/empty_friendlist"
         android:layout_width="wrap_content"
         android:padding="10sp"
         android:layout_margin="10sp"

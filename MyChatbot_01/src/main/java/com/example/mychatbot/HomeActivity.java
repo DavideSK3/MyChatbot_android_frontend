@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +53,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<Chat> chatsList;
     private ProgressDialog progressDialog;
     private ChatsListAdapter clAdapter;
+
+    private Boolean exit = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,22 +161,25 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //creates a Menu with logout option
+    //creates a Menu with logout and help options
     public boolean onCreateOptionsMenu(Menu menu){
         super.onCreateOptionsMenu(menu);
         int base=Menu.FIRST;
-        MenuItem item1=menu.add(base,1,1,"Logout");
+        MenuItem item1=menu.add(base,1,1,"Help");
+        MenuItem item2=menu.add(base,2,2,"Logout");
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         System.out.println("item="+item.getItemId());
-        if (item.getItemId()==1) {
+        if (item.getItemId()==2) {
             LoginManager.getInstance().logOut();
             logOut();
-        } else
+        } else if (item.getItemId()==1){
+            Toast.makeText(this, "Click on + Button to create a new chat!", Toast.LENGTH_LONG).show();
+        }else {
             return super.onOptionsItemSelected(item);
-        return true;
+        }return true;
     }
 
     //logs out the user
@@ -223,5 +229,26 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         };
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    @Override
+    public void onBackPressed(){
+        if (exit) {
+            Intent a = new Intent(Intent.ACTION_MAIN);
+            a.addCategory(Intent.CATEGORY_HOME);
+            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(a);
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+
+        }
     }
 }

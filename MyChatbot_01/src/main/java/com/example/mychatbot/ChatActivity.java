@@ -19,6 +19,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -238,7 +240,7 @@ public class ChatActivity extends AppCompatActivity {
     //sends a new message
     private void sendMessage(final String i, final String day) {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Sendind message with intent..."+i);
+        progressDialog.setMessage("Sendind message...");
         progressDialog.show();
 
         final String fb_id = SharedPrefManager.getInstance(this).getFacebookId();
@@ -409,5 +411,32 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         return value.substring(0,10);
+    }
+
+    @Override
+    public void onBackPressed(){
+        finish();
+        Intent intent = new Intent(context, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    //creates a Menu with help option
+    public boolean onCreateOptionsMenu(Menu menu){
+        super.onCreateOptionsMenu(menu);
+        int base=Menu.FIRST;
+        MenuItem item1=menu.add(base,1,1,"Help");
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        System.out.println("item="+item.getItemId());
+        if (item.getItemId()==1){
+            Toast.makeText(this, "When an intent is detected in a message, a contextual button appears next to it.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Click on contextual button to access additional information.\n" +
+                            "Click on underlined links to access details page",
+                    Toast.LENGTH_LONG).show();
+        }else {
+            return super.onOptionsItemSelected(item);
+        }return true;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.mychatbot;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +12,15 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -115,8 +120,8 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         gps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    System.out.println("No permissions");
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    askPermission();
                     return;
                 }
                 System.out.println("On clickLatitude:" + lat + ", Longitude:" + lon);
@@ -156,7 +161,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         } else if (intento.equals("cinema")){
             fetchMovieList();
         } else {
-            Toast.makeText(ResultsActivity.this, "Intent can't be matched to rest or cin", Toast.LENGTH_LONG).show();
+            Toast.makeText(ResultsActivity.this, "Intent can't be recognized", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -306,7 +311,6 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
     private void initLocationManager(){
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(ResultsActivity.this, "Enable location permissions in your app settings to use this function", Toast.LENGTH_LONG).show();
             return;
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 10, this);
@@ -396,4 +400,50 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         Log.d("Latitude", "status");
     }
 
+    //in android 6.0+ GPS permissions must be granted at runtime
+    private void askPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            String[] perms = {"android.permission.ACCESS_FINE_LOCATION"};
+            requestPermissions(perms, 200);
+        } else {
+            Toast.makeText(ResultsActivity.this, "You need to enable GPS permission from settings.", Toast.LENGTH_LONG).show();
+        }
+    }
+    //updates locationManager when permissions for GPS in Android 6.0+ are given
+    @Override
+    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
+        switch(permsRequestCode){
+            case 200:
+                if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    initLocationManager();
+                }
+                break;
+        }
+    }
+
+    //creates a Menu with help option
+    public boolean onCreateOptionsMenu(Menu menu){
+        super.onCreateOptionsMenu(menu);
+        int base=Menu.FIRST;
+        MenuItem item1=menu.add(base,1,1,"Help");
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        System.out.println("item="+item.getItemId());
+        if (item.getItemId()==1){
+            if(intento.equals("restaurant")) {
+                Toast.makeText(this, "Click on GPS button to find closest restaurants.\n" +
+                                "Click on Search button to find restaurant near to the specified location.",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Tap on a restaurant's name to see more details.\n" +
+                                "Tap on the map preview to find it on Google Maps.",
+                        Toast.LENGTH_LONG).show();
+            }else if(intento.equals("cinema")){
+                Toast.makeText(this, "Click on a Movie to receive the schedules in available cinemas." ,
+                        Toast.LENGTH_LONG).show();
+            }
+        }else {
+            return super.onOptionsItemSelected(item);
+        }return true;
+    }
 }

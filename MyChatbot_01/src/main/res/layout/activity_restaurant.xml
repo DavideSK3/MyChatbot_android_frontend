@@ -56,14 +56,13 @@
             android:paddingBottom="15sp"
             android:gravity="center"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/distance"
-            android:background="@drawable/white_message">
+            android:layout_below="@id/distance">
         </TextView>
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/mappa"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/infos"

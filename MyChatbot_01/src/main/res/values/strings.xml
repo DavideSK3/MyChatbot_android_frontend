@@ -1,5 +1,11 @@
 <resources>
-    <string name="app_name">MyChatbot</string>
+    <string name="app_name">SmartChats</string>
     <string name="facebook_app_id">1142113632567709</string>
     <string name="default_location">Trento</string>
+    <string name="logout">Logout</string>
+    <string name="today_schedule">Today\'s Schedule</string>
+    <string name="smart">Smart</string>
+    <string name="chats">Chats</string>
+    <string name="friendlist">Friendlist</string>
+    <string name="empty_friendlist">Sync FB friends</string>
 </resources>

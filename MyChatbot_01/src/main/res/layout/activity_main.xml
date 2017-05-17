@@ -21,19 +21,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="My"
+                android:text="@string/smart"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="50sp"
-                android:textStyle="italic|bold" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="My"
+                android:text="@string/smart"
                 android:textColor="@color/blue"
                 android:textSize="50sp"
-                android:textStyle="italic" />
+                android:textStyle="" />
 
             </RelativeLayout>
 
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Chatbot"
+                android:text="@string/chats"
                 android:textColor="@color/green"
                 android:textSize="50sp"
                 android:textStyle="bold" />
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Chatbot"
+                android:text="@string/chats"
                 android:textColor="@color/lightgreen"
                 android:textSize="50sp" />
 

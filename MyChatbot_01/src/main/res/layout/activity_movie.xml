@@ -20,7 +20,7 @@
         android:id="@+id/movie"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="280sp"
+        android:layout_height="300sp"
         android:layout_below="@+id/day">
         <RelativeLayout
             android:layout_width="0dp"
