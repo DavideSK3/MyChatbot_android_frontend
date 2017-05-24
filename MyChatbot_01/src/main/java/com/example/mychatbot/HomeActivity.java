@@ -83,6 +83,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v==friendlistButton){
             startActivity(new Intent(context, FriendlistActivity.class));
+            overridePendingTransition(R.anim.enter_right, R.anim.exit_right);
         }
     }
 
@@ -152,6 +153,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 String chatname = chatsList.get(position).getChatName();
                 openChatActivityIntent.putExtra(getPackageName() + ".chatname",chatname);
                 startActivity(openChatActivityIntent);
+                overridePendingTransition(R.anim.enter_right, R.anim.exit_right);
             }
         });
         if(chatsList.isEmpty()){
@@ -205,6 +207,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             Toast.makeText(HomeActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
                             System.out.println(obj.getString("message"));
                             if(obj.getString("message").equals("Logout Succesful")){
+                                finish();
                                 startActivity(new Intent(context, MainActivity.class));
                             }
                         } catch (JSONException e) {

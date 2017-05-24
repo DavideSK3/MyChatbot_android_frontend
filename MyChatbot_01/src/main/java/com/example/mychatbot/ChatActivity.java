@@ -418,6 +418,7 @@ public class ChatActivity extends AppCompatActivity {
         finish();
         Intent intent = new Intent(context, HomeActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.enter_left, R.anim.exit_left);
     }
 
     //creates a Menu with help option
@@ -432,9 +433,8 @@ public class ChatActivity extends AppCompatActivity {
         System.out.println("item="+item.getItemId());
         if (item.getItemId()==1){
             Toast.makeText(this, "When an intent is detected in a message, a contextual button appears next to it.", Toast.LENGTH_LONG).show();
-            Toast.makeText(this, "Click on contextual button to access additional information.\n" +
-                            "Click on underlined links to access details page",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Click on contextual button to access additional information.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Click on underlined links to access details page", Toast.LENGTH_LONG).show();
         }else {
             return super.onOptionsItemSelected(item);
         }return true;

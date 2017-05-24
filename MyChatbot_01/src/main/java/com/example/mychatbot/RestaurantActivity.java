@@ -262,6 +262,7 @@ public class RestaurantActivity extends AppCompatActivity {
                         openChatActivityIntent.putExtra(getPackageName() + ".chatid",chatid);
                         openChatActivityIntent.putExtra(getPackageName() + ".chatname",chatname);
                         startActivity(openChatActivityIntent);
+                        overridePendingTransition(R.anim.enter_up, R.anim.exit_up);
                     }
                 },
                 new Response.ErrorListener() {
@@ -335,14 +336,17 @@ public class RestaurantActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         System.out.println("item="+item.getItemId());
         if (item.getItemId()==1){
-            Toast.makeText(this, "Swipe Up on the Restaurant's Name/Description to share it as a message.\n" +
-                            "Click on the map preview to find the restaurant on Google Maps.",
-                    Toast.LENGTH_LONG).show();
-            Toast.makeText(this,"The buttons on the bottom allow you to open the dialer, send an email" +
-                            " and open the website when these information about the restaurant are available.",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Swipe Up on the Restaurant's Name/Description to share it as a message", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Click on the map preview to find the restaurant on Google Maps.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Click on the bottom buttons to open email, dialer or website", Toast.LENGTH_LONG).show();
         }else {
             return super.onOptionsItemSelected(item);
         }return true;
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        overridePendingTransition(R.anim.enter_left, R.anim.exit_left);
     }
 }

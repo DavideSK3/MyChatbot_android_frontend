@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -20,7 +18,6 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.example.mychatbot.Adapters.MovieListAdapter;
 import com.example.mychatbot.Adapters.ScheduleListAdapter;
 import com.example.mychatbot.Entities.Movie;
 import com.example.mychatbot.Entities.Schedule;
@@ -293,6 +290,7 @@ public class MovieActivity extends AppCompatActivity {
                         openChatActivityIntent.putExtra(getPackageName() + ".chatid",chatid);
                         openChatActivityIntent.putExtra(getPackageName() + ".chatname",chatname);
                         startActivity(openChatActivityIntent);
+                        overridePendingTransition(R.anim.enter_up, R.anim.exit_up);
                     }
                 },
                 new Response.ErrorListener() {
@@ -366,12 +364,17 @@ public class MovieActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         System.out.println("item="+item.getItemId());
         if (item.getItemId()==1){
-            Toast.makeText(this, "Swipe Up to share this day and Movie schedule as a message.\n" +
-                            "Swipe left/right to check this movie's schedule for the day before/after the current one.",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Swipe left/right to check this movie's schedule for the day before/after the current one.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Swipe Up to share this day and Movie schedule as a message.", Toast.LENGTH_LONG).show();
         }else {
             return super.onOptionsItemSelected(item);
         }return true;
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        overridePendingTransition(R.anim.enter_left, R.anim.exit_left);
     }
 
 }

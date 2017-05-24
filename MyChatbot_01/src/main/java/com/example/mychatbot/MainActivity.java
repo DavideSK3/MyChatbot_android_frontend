@@ -3,6 +3,7 @@ package com.example.mychatbot;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     private String name;
     private Boolean second_chance = true;
+    private Boolean exit = false;
 
     private ProgressDialog progressDialog;
 
@@ -115,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                             System.out.println(obj.getString("message"));
                             if(obj.getString("message").equals("Succesfully Logged in")){
                                 startActivity(new Intent(context, HomeActivity.class));
+                                overridePendingTransition(R.anim.enter_up, R.anim.exit_up);
                                 finish();
                             } else if (obj.getString("message").equals("Outdated Client Version!")) {
                                 Toast.makeText(MainActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
@@ -181,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                             System.out.println("Signup:  "+obj.getString("message"));
                             if(obj.getString("error").equals("false")){
                                 startActivity(new Intent(context, HomeActivity.class));
+                                overridePendingTransition(R.anim.enter_up, R.anim.exit_up);
                                 finish();
                             } else {
                                 Toast.makeText(MainActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
@@ -251,5 +255,26 @@ public class MainActivity extends AppCompatActivity {
         };
 
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    @Override
+    public void onBackPressed(){
+        if (exit) {
+            Intent a = new Intent(Intent.ACTION_MAIN);
+            a.addCategory(Intent.CATEGORY_HOME);
+            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(a);
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+
+        }
     }
 }

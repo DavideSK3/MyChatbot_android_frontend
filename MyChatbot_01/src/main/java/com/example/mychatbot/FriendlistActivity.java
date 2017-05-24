@@ -158,6 +158,7 @@ public class FriendlistActivity extends AppCompatActivity {
                             openChatActivityIntent.putExtra(getPackageName() + ".chatid", chatid);
                             openChatActivityIntent.putExtra(getPackageName() + ".chatname", chatname);
                             startActivity(openChatActivityIntent);
+                            overridePendingTransition(R.anim.enter_right, R.anim.exit_right);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -279,11 +280,18 @@ public class FriendlistActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         System.out.println("item="+item.getItemId());
         if (item.getItemId()==1){
-            Toast.makeText(this, "Click on a friend to start chatting with him/her.\n" +
-                                    "Click on sync button to retrieve Facebook friends that are using this app.",
+            Toast.makeText(this, "Click on a friend to start chatting with him/her.",
+                                    Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Click on sync button to retrieve Facebook friends that are using this app.",
                                     Toast.LENGTH_LONG).show();
         }else {
             return super.onOptionsItemSelected(item);
         }return true;
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        overridePendingTransition(R.anim.enter_left, R.anim.exit_left);
     }
 }

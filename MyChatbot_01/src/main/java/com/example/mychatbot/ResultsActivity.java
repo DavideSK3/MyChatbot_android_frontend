@@ -283,6 +283,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
                 System.out.println("my restaurant chosen is"+ restaurantList.get(position).getId());
                 openRestaurantActivityIntent.putExtra(getPackageName() + ".chatname",chatname);
                 startActivity(openRestaurantActivityIntent);
+                overridePendingTransition(R.anim.enter_right, R.anim.exit_right);
             }
         });
         list.setSelectionAfterHeaderView();
@@ -302,6 +303,7 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
                 openRestaurantActivityIntent.putExtra(getPackageName() + ".chatid",chatid);
                 openRestaurantActivityIntent.putExtra(getPackageName() + ".day",day);
                 startActivity(openRestaurantActivityIntent);
+                overridePendingTransition(R.anim.enter_right, R.anim.exit_right);
             }
         });
         list.setSelectionAfterHeaderView();
@@ -433,11 +435,10 @@ public class ResultsActivity extends AppCompatActivity implements LocationListen
         System.out.println("item="+item.getItemId());
         if (item.getItemId()==1){
             if(intento.equals("restaurant")) {
-                Toast.makeText(this, "Click on GPS button to find closest restaurants.\n" +
-                                "Click on Search button to find restaurant near to the specified location.",Toast.LENGTH_LONG).show();
-                Toast.makeText(this,"Tap on a restaurant's name to see more details.\n" +
-                                "Tap on the map preview to find it on Google Maps.",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Click on GPS button to find closest restaurants.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Click on Search button to find restaurant near to the specified location.",Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Tap on a restaurant's name to see more details.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Tap on the map preview to find it on Google Maps.", Toast.LENGTH_LONG).show();
             }else if(intento.equals("cinema")){
                 Toast.makeText(this, "Click on a Movie to receive the schedules in available cinemas." ,
                         Toast.LENGTH_LONG).show();
