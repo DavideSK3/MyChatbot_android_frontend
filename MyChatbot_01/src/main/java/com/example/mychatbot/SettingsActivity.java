@@ -25,10 +25,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Created by david on 15/04/2017.
  *
  * UNUSED ACTIVITY, MAY BE ADDED IN FUTURE VERSIONS
  *
- * Created by david on 15/04/2017.
  */
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener{

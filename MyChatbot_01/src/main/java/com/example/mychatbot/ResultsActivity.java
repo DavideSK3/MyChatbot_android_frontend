@@ -61,6 +61,11 @@ import java.util.Map;
 
 /**
  * Created by david on 08/05/2017.
+ *
+ * User can see the list of restaurant/movie depending on the intent detected in the message
+ * Restaurant show name, address, distance and map preview.
+ * They can be sorted by GPS closeness or by address closeness
+ * Movies show name, description, category, length, poster
  */
 
 public class ResultsActivity extends AppCompatActivity implements LocationListener {

@@ -56,6 +56,12 @@ import java.util.Map;
 
 /**
  * Created by david on 15/04/2017.
+ *
+ * User can see messages for the current chat correctly ordered and distinguish from his/other messages
+ * User can type and send new messages
+ * User can see which messages have a related contextual buttons to click
+ * User can access suggested restaurant/movie screening schedules
+ *
  */
 
 public class ChatActivity extends AppCompatActivity {
@@ -144,7 +150,7 @@ public class ChatActivity extends AppCompatActivity {
         fetchMessageList();
     }
 
-    //When a notification arrives, refreshes the current chat activity to get new messages
+    //Add a broadcast receiver: when a notification arrives, refreshes the current chat activity to get the new messages
     @Override
     protected void onStart() {
         super.onStart();
@@ -167,11 +173,8 @@ public class ChatActivity extends AppCompatActivity {
         unregisterReceiver(broadcastReceiver);
     }
 
-    //Updates messages
+    //Updates messages fetching them from db
     private void fetchMessageList() {
-        //progressDialog = new ProgressDialog(this);
-        //progressDialog.setMessage("Fetching messages...");
-        //progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.POST, EndPoints.URL_GET_MESSAGES,
                 new Response.Listener<String>() {

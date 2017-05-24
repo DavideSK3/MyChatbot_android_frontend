@@ -38,6 +38,10 @@ import java.util.Map;
 
 /**
  * Created by david on 08/05/2017.
+ *
+ * User can see screenings for the selected movie in the specified (or current by default) date.
+ * User can swipe left/right to see previous/next day's screenings
+ * User can share screening by swiping up
  */
 
 public class MovieActivity extends AppCompatActivity {

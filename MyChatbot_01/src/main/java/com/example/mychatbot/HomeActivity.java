@@ -40,6 +40,10 @@ import java.util.Map;
 
 /**
  * Created by david on 10/04/2017.
+ *
+ * Presents the whole list of chats in chronological inverse order.
+ * User can click on a chat to open it or click on the button to create new chats.
+ * User can logout from the menu.
  */
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{

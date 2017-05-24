@@ -45,6 +45,11 @@ import java.util.Map;
 
 /**
  * Created by david on 08/05/2017.
+ *
+ * User can see details about the chosen restaurant.
+ * User can access its location on google map, its number on phone dialer,
+ * its email address on email app, its website on browser
+ * User can share restaurant by swiping up (not on the map preview)
  */
 
 public class RestaurantActivity extends AppCompatActivity {

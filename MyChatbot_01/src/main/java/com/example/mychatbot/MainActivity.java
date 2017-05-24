@@ -29,6 +29,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Created by david on 07/04/2017.
+ *
+ * Launcher Activity. If User already logged in in this device it will automatically move to HomeActivity.
+ * Otherwise He'll have to Login with Facebook
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private LoginButton loginButton;

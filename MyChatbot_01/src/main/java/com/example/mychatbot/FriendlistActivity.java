@@ -37,6 +37,10 @@ import java.util.Map;
 
 /**
  * Created by david on 15/04/2017.
+ *
+ * User can see the list of friends saved in DB
+ * User can update its list by Syncing with Facebook users which installed the app.
+ * User can click on a name to open that chat or create it if it doesn't exist
  */
 
 public class FriendlistActivity extends AppCompatActivity {
