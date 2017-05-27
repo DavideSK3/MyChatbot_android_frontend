@@ -3,9 +3,9 @@
 Author: davidebelli95@gmail.com
 Thesis And LPSMT Project for Bachelor Degree in Computer Science at University of Trento.
 
-How to test:
-1) Install the generated updated apk from the relative folder
-2) Setup your Android Studio environment to compile the apk on your own.
+How to test (2 possible ways):
+1) Install the generated updated apk from the relative folder (quick)
+2) Setup your Android Studio environment to compile the apk on your own (complete, allows checking and editing the code)
 
 How to setup:
 1) Clone or Download the GitHub Project and import it to your Android Studio IDE.
