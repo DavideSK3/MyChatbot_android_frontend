@@ -3,7 +3,7 @@
 Author: davidebelli95@gmail.com
 Thesis And LPSMT Project for Bachelor Degree in Computer Science at University of Trento.
 
-How to test (2 possible ways):
+How to use the client app (2 possible ways):
 1) Install the generated updated apk from the relative folder (quick)
 2) Setup your Android Studio environment to compile the apk on your own (complete, allows checking and editing the code)
 
