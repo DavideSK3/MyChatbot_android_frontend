@@ -7,6 +7,11 @@ How to use the client app (2 possible ways):
 1) Install the generated updated apk from the relative folder (quick)
 2) Setup your Android Studio environment to compile the apk on your own (complete, allows checking and editing the code)
 
+NB: Facebook doesn't allow you to check for friends who didn't install the app. I suggest to use these FB dummy accounts for testing purposes:
+dummy1@10host.top - psw ”dummy01”  - Mario Rossi
+dummy2@10host.top - psw ”dummy02”  - Giulia De Franceschi
+
+
 How to setup:
 1) Clone or Download the GitHub Project and import it to your Android Studio IDE.
 2) Check for sdk and libraries dependencies to be updated in the Gradle files.
