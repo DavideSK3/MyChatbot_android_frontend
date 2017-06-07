@@ -8,8 +8,8 @@ How to use the client app (2 possible ways):
 2) Setup your Android Studio environment to compile the apk on your own (complete, allows checking and editing the code)
 
 NB: Facebook doesn't allow you to check for friends who didn't install the app. I suggest to use these FB dummy accounts for testing purposes:
-dummy1@10host.top - psw ”dummy01”  - Mario Rossi
-dummy2@10host.top - psw ”dummy02”  - Giulia De Franceschi
+1) dummy1@10host.top - psw ”dummy01”  - Mario Rossi
+2) dummy2@10host.top - psw ”dummy02”  - Giulia De Franceschi
 
 
 How to setup:
